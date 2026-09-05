@@ -1,11 +1,11 @@
 import AppKit
+import MacKitOverlay
 import SwiftUI
 
 @MainActor
 final class TogglePanel: NSPanel {
     private var hostingView: NSHostingView<TogglePanelView>?
-    private var outsideClickMonitor: Any?
-    private var outsideClickLocalMonitor: Any?
+    private let outsideClickMonitor = OutsideClickMonitor()
     var additionalKeptFrames: () -> [NSRect] = { [] }
 
     init(model: FeatureController) {
@@ -79,39 +79,16 @@ final class TogglePanel: NSPanel {
     }
 
     private func installOutsideClickMonitor() {
-        removeOutsideClickMonitor()
-        let mouseDown: NSEvent.EventTypeMask = [.leftMouseDown, .rightMouseDown, .otherMouseDown]
-        outsideClickMonitor = NSEvent.addGlobalMonitorForEvents(matching: mouseDown) { [weak self] _ in
-            let point = NSEvent.mouseLocation
-            Task { @MainActor in
-                self?.handleOutsideMouseDown(at: point, eventWindow: nil)
-            }
-        }
-        outsideClickLocalMonitor = NSEvent.addLocalMonitorForEvents(matching: mouseDown) { [weak self] event in
-            guard let self else { return event }
-            let point = event.window?.convertPoint(toScreen: event.locationInWindow) ?? NSEvent.mouseLocation
-            self.handleOutsideMouseDown(at: point, eventWindow: event.window)
-            return event
-        }
+        outsideClickMonitor.panelFrame = { [weak self] in self?.frame ?? .zero }
+        outsideClickMonitor.isPanelVisible = { [weak self] in self?.isVisible ?? false }
+        outsideClickMonitor.isOwnWindow = { [weak self] window in window === self }
+        outsideClickMonitor.additionalKeptFrames = { [weak self] in self?.additionalKeptFrames() ?? [] }
+        outsideClickMonitor.onOutsideClick = { [weak self] in self?.hidePanel() }
+        outsideClickMonitor.install()
     }
 
     private func removeOutsideClickMonitor() {
-        if let outsideClickMonitor {
-            NSEvent.removeMonitor(outsideClickMonitor)
-            self.outsideClickMonitor = nil
-        }
-        if let outsideClickLocalMonitor {
-            NSEvent.removeMonitor(outsideClickLocalMonitor)
-            self.outsideClickLocalMonitor = nil
-        }
-    }
-
-    private func handleOutsideMouseDown(at point: NSPoint, eventWindow: NSWindow?) {
-        guard isVisible else { return }
-        if eventWindow === self { return }
-        let kept = [frame] + additionalKeptFrames()
-        guard PanelDismiss.shouldHide(click: point, keptFrames: kept) else { return }
-        hidePanel()
+        outsideClickMonitor.remove()
     }
 
     private func makeChrome(_ hostingView: NSHostingView<TogglePanelView>) -> NSView {

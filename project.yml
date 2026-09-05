@@ -107,6 +107,8 @@ targets:
         product: MacKitLaunchAtLogin
       - package: MacKit
         product: MacKitLifecycle
+      - package: MacKit
+        product: MacKitOverlay
 
   HandySwitchTests:
     type: bundle.unit-test

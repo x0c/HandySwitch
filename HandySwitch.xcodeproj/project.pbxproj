@@ -11,6 +11,7 @@
 		20378AD1EDCFA6ED1A9AB44A /* FeatureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630A4D109FF718C555C3FED1 /* FeatureController.swift */; };
 		29358076D05A40A517EBF6FC /* PreventSleepSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796BA712102AA0F3B7BC4139 /* PreventSleepSchedule.swift */; };
 		2A14825D1AAF0FED1BD1509E /* PreventSleepServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48EB10712D3CCF67D2C7E9E /* PreventSleepServiceTests.swift */; };
+		506BFAACC1B06F7D4BB43A0A /* MacKitOverlay in Frameworks */ = {isa = PBXBuildFile; productRef = BBF50BE61D6387F1B5D02670 /* MacKitOverlay */; };
 		5787CBBCCF32E2DD1968A011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF8B6FCB0616DED494E82E3 /* AppDelegate.swift */; };
 		596AA724E54ED04662C88189 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050BB24F9B7C52BB89B071EB /* AppPreferences.swift */; };
 		5A96B71BF159E42B3E4E0886 /* PreventSleepService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CFD9B2B52BD62A6787CC00 /* PreventSleepService.swift */; };
@@ -27,7 +28,6 @@
 		A89E5CFF5DD2AACA5A1149A8 /* DarkModeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088230C5830F924489D9560 /* DarkModeService.swift */; };
 		B3AC2DAB64AEADA38F3D56B5 /* MacKitLifecycle in Frameworks */ = {isa = PBXBuildFile; productRef = 5A1D47E27CE70295A9EC641F /* MacKitLifecycle */; };
 		BCB62724DB63D96CA3BA8FF7 /* AutomationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4BAAF7DB69ACB215654C89 /* AutomationPermission.swift */; };
-		C386D1818524B76E5FF41141 /* PanelDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD03B9A7A8F3320B824E3914 /* PanelDismiss.swift */; };
 		CF2989CF9F4ADB0143EB20F1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D40959C85110B00CDB8167F6 /* Localizable.xcstrings */; };
 		D4DB6203CDCAF497A58D21F8 /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8027C6A89F6391BA0FB8D40 /* LaunchAtLoginManager.swift */; };
 		DBC85C117DE0465A451C9739 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C453427DC90C4097F463DE0 /* StatusItemController.swift */; };
@@ -75,7 +75,6 @@
 		AC9036A4085BE30CE4D1C92A /* AppUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdater.swift; sourceTree = "<group>"; };
 		AD0E10D9BF9011FC26C3066C /* HandySwitchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HandySwitchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B48EB10712D3CCF67D2C7E9E /* PreventSleepServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreventSleepServiceTests.swift; sourceTree = "<group>"; };
-		BD03B9A7A8F3320B824E3914 /* PanelDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelDismiss.swift; sourceTree = "<group>"; };
 		C13A8666DEE79B35680D8A7A /* README.zh-CN.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "README.zh-CN.md"; sourceTree = "<group>"; };
 		C534A89E40015A63568C320A /* TogglePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglePanel.swift; sourceTree = "<group>"; };
 		C85C4AC6627BAD4356177DED /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon.png"; sourceTree = "<group>"; };
@@ -100,6 +99,7 @@
 				69D6FA4380B6D11EB3070BCB /* MacKitCore in Frameworks */,
 				70AB0DC70809567CA1D794A0 /* MacKitLaunchAtLogin in Frameworks */,
 				B3AC2DAB64AEADA38F3D56B5 /* MacKitLifecycle in Frameworks */,
+				506BFAACC1B06F7D4BB43A0A /* MacKitOverlay in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +148,6 @@
 		31A117A879F39C0E1A024394 /* Panel */ = {
 			isa = PBXGroup;
 			children = (
-				BD03B9A7A8F3320B824E3914 /* PanelDismiss.swift */,
 				37D67442DE3C7065128CF9B1 /* PanelPlacement.swift */,
 				C534A89E40015A63568C320A /* TogglePanel.swift */,
 				1181640E1E5BF375A0C62F1C /* TogglePanelView.swift */,
@@ -272,6 +271,7 @@
 				78E1CB992F5F283544690EBA /* MacKitCore */,
 				66697B25ACFB6E379472DB9E /* MacKitLaunchAtLogin */,
 				5A1D47E27CE70295A9EC641F /* MacKitLifecycle */,
+				BBF50BE61D6387F1B5D02670 /* MacKitOverlay */,
 			);
 			productName = HandySwitch;
 			productReference = 801E5AC9B28C38D128CB11E0 /* HandySwitch.app */;
@@ -348,7 +348,6 @@
 				0442EB2C894FD93C148A91B5 /* HandySwitchApp.swift in Sources */,
 				D4DB6203CDCAF497A58D21F8 /* LaunchAtLoginManager.swift in Sources */,
 				A850137F4C550669FF07FB33 /* MouseScrollService.swift in Sources */,
-				C386D1818524B76E5FF41141 /* PanelDismiss.swift in Sources */,
 				F1D0F53E81CE30647F7CE121 /* PanelPlacement.swift in Sources */,
 				29358076D05A40A517EBF6FC /* PreventSleepSchedule.swift in Sources */,
 				5A96B71BF159E42B3E4E0886 /* PreventSleepService.swift in Sources */,
@@ -697,6 +696,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 27BD240355152551540686FB /* XCRemoteSwiftPackageReference "mac-kit-swift" */;
 			productName = MacKitCore;
+		};
+		BBF50BE61D6387F1B5D02670 /* MacKitOverlay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 27BD240355152551540686FB /* XCRemoteSwiftPackageReference "mac-kit-swift" */;
+			productName = MacKitOverlay;
 		};
 		F212AD84991C0E5AF78D41D4 /* Sparkle */ = {
 			isa = XCSwiftPackageProductDependency;

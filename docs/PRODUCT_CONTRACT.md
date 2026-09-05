@@ -28,7 +28,7 @@
 - **媒体键禁令**：必须吞掉系统定义键 / 媒体键，**禁止**注册 Now Playing 或远程媒体命令中心。验收：进入后按播放/暂停等媒体键，**不得**弹出或操控音乐。
 - **退出手势**（唯一出口，遮罩上常显英文提示）：按住 Escape 约 3 秒。
 - **禁止**其它退出捷径（含 ⌃⌘Esc / Control + Command + Escape、单按 Escape、点遮罩、菜单栏等）。
-- **实现约束（2026-09-05）**：Esc 按下/抬起与秒表回调都经主线程 Task 排队。秒表 tick **必须**用代际（或等价作废）校验仍属本次按住；只判「计时器非空」不够——松手再按会挂上新计时器，旧 tick 仍会改剩余秒数甚至误退出。
+- **实现约束**：Esc 按下/抬起与秒表、异步开关均经主线程 Task 排队——**代际作废**见全局 [macOS 异步 UI 状态的代际作废](~/.config/agentsync/docs/MACOS_ASYNC_UI_STATE_GUIDE.md)；本产品按住约 3 秒。
 - 退出后立刻恢复输入与光标；进程崩溃也不应留下永久锁输入（拦截随进程消失）。
 - 缺辅助功能权限时：开关打不开，并提供一键跳到系统设置 › 隐私与安全性 › 辅助功能。
 - 清洁模式是**瞬时会话**：开关表示「现在是否在清洁中」。退出手势成功后开关回到关。
@@ -39,9 +39,7 @@
 - **文案**：英文 `Dark Mode`；简体中文 `深色模式`（对齐系统设置用词；勿改成谜语名或做成夜览）。
 - **开**：系统外观为深色；**关**：系统外观为浅色。若用户原先是「自动」，拨动本开关会退出自动、落到明确的深色或浅色（与系统设置 / 控制中心行为一致）。
 - **镜像系统**：开关反映系统当前外观；在系统设置或控制中心改外观时，浮层打开时应同步。**不要**把深色状态写进本应用偏好并在启动时强行重放——会与系统「自动」和外部分切换打架。
-- **实现口径（2026-09-05）**：经 System Events 的外观偏好切换（与 OnlySwitch Dark Mode 同路径）；读状态可用全局外观域，不必为「只读」再走脚本。加固运行时**必须**带 `com.apple.security.automation.apple-events` 与 `NSAppleEventsUsageDescription`；切换前用 `AEDeterminePermissionToAutomateTarget`（后台线程）显式申请，否则会静默失败。
-- **列表空白症状（2026-09-05）**：用户说「系统设置 › 自动化里没有 HandySwitch」——常见根因是发布包 entitlements 被掏空，加固运行时直接禁掉 Apple Events：**既不弹授权窗，也不会在自动化列表登记该项**。修复后应再拨一次深色模式，先让系统弹窗；点允许后列表才会出现。**禁止**把空 `<dict/>` entitlements 当默认；发版前用 `codesign -d --entitlements` 核验含 apple-events。
-- **切换竞态（2026-09-05）**：异步切换未完成时用户又拨回当前外观，`setEnabled` 的 early-return **仍须**递增代际作废进行中的切换；否则先前那次脚本仍会落地，开关与系统外观对不上。
+- **权限与实现**：经 System Events 切换外观；加固运行时 / Apple Events /「自动化列表没有本应用」→ 全局 [macos-system-permissions.md](/Users/geraltgraham/Codes/_standards/workspace-docs/swift-docs/macos-system-permissions.md)。异步拨回须代际作废 → [MACOS_ASYNC_UI_STATE_GUIDE.md](~/.config/agentsync/docs/MACOS_ASYNC_UI_STATE_GUIDE.md)。
 - 缺自动化权限时：开关打不开（或拨动后回弹），并说明「先等系统弹窗 / 列表为空时再拨一次」，提供跳到系统设置 › 隐私与安全性 › 自动化。
 - **禁止**用私有 SkyLight 外观 API 当主路径（易碎、难公证）；**禁止**做成 Night Shift / 色温开关却仍叫深色模式。
 
