@@ -29,6 +29,8 @@ final class CleanModeService {
     private var idleAssertionID = CleanModeService.nullAssertionID
     private var escapeHoldTimer: Timer?
     private var escapeHoldRemaining = 0
+    /// 松键取消后仍可能有已排队的 tick Task；用代际作废，避免松 Esc 后仍退出。
+    private var escapeHoldGeneration = 0
     private let hintModel = OverlayHintModel()
     private var screenObserver: NSObjectProtocol?
     private var isStopping = false
@@ -149,11 +151,13 @@ final class CleanModeService {
 
     private func beginEscapeHold() {
         guard escapeHoldTimer == nil else { return }
+        escapeHoldGeneration += 1
+        let generation = escapeHoldGeneration
         escapeHoldRemaining = Self.escapeHoldSeconds
         updateHints()
         let timer = Timer(timeInterval: 1, repeats: true) { [weak self] _ in
             Task { @MainActor in
-                self?.tickEscapeHold()
+                self?.tickEscapeHold(generation: generation)
             }
         }
         escapeHoldTimer = timer
@@ -161,13 +165,17 @@ final class CleanModeService {
     }
 
     private func cancelEscapeHold() {
+        // 作废已排队的 tick Task：仅判 timer!=nil 不够——松键再按会挂上新 timer，
+        // 旧 tick 仍会改 remaining 甚至误退出。
+        escapeHoldGeneration += 1
         escapeHoldTimer?.invalidate()
         escapeHoldTimer = nil
         escapeHoldRemaining = 0
         updateHints()
     }
 
-    private func tickEscapeHold() {
+    private func tickEscapeHold(generation: Int) {
+        guard generation == escapeHoldGeneration else { return }
         if escapeHoldRemaining > 1 {
             escapeHoldRemaining -= 1
             updateHints()

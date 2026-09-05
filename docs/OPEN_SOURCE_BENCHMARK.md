@@ -9,3 +9,5 @@ HandySwitch 第一次公开到 GitHub `x0c/HandySwitch` 时对照的高星同类
 | [x0c/CPUKiller](https://github.com/x0c/CPUKiller) | Supported platforms 声明、Not in scope、干净快照推公开仓、本机一条命令发版 | **是**：整套门面与发版骨架直接复用 |
 
 刻意不抄：OnlySwitch 的 Shortcuts Gallery / Desktop Pet / 社区 Discord；Mos 的按应用配置与按钮重映射（产品已明确不做）。
+
+<!-- 该文档整理/压缩于 2026-09-05 -->

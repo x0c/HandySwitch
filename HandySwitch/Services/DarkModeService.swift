@@ -44,13 +44,15 @@ final class DarkModeService {
     }
 
     func setEnabled(_ enabled: Bool) {
+        // 先作废进行中的切换：快速拨回「当前外观」时若 early-return 不 bump，
+        // 先前那次异步切换仍会落地，开关与系统外观对不上。
+        toggleGeneration += 1
+        let generation = toggleGeneration
+
         if enabled == isDarkMode {
             needsAutomationHelp = false
             return
         }
-
-        toggleGeneration += 1
-        let generation = toggleGeneration
 
         Task { [weak self] in
             // 授权窗会阻塞线程，必须离开主线程，否则浮层卡死、系统也不弹窗。
