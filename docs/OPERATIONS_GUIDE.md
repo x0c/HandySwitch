@@ -19,6 +19,16 @@ xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Rel
 
 一条命令：`scripts/publish-release.sh`（签名 → 公证 → Sparkle appcast → GitHub Release → Homebrew cask）。本地私有配置见 `scripts/publish-local.env.example`。只做本机公证包可用 `--local-only`。
 
+### 发版中断后怎么续（禁止盲目重跑整脚本）
+
+若日志已到「公证 dmg」且有提交编号，进程在轮询 `sleep` 时被杀掉（如 `Terminated: 15`）：
+
+1. 用同一组 `publish-local.env` 跑 `xcrun notarytool info <提交编号> …`。
+2. **Accepted** 且 `build/HandySwitch-<版>.dmg` 仍在：对该**同一份** dmg 做 `stapler staple` / `stapler validate`，再按脚本后半段重生 appcast（中断时临时目录会丢）、提交、推 GitHub 快照、Release 上传、Homebrew、匿名终检。
+3. **禁止**此时再跑整脚本从「打 dmg」重来：新 dmg 校验和不同，旧票据装不上，等于再排一次公证。
+4. **In Progress**：继续 `info` 轮询；**Rejected**：看 `notarytool log`，修根因后再整脚本重跑。
+5. `raw.githubusercontent.com` 的 appcast 可能短暂缓存旧版；可用 commit 钉死 raw、jsDelivr 或 `git fetch` 对照，再等 main raw 刷新后做终检。
+
 ## 验收清单
 
 1. 左键：浮层只有五个开关（清洁 / 深色 / 防睡 / 滚轮反转 / 滚轮平滑）；点外面关；不掉到屏幕角落。
