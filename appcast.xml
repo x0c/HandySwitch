@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="yes"?><!-- sparkle-sign-warning:
+IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
+--><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>HandySwitch</title>
+        <item>
+            <title>1.0.10</title>
+            <pubDate>Sat, 05 Sep 2026 22:45:26 +0800</pubDate>
+            <link>https://github.com/x0c/HandySwitch</link>
+            <sparkle:version>12</sparkle:version>
+            <sparkle:shortVersionString>1.0.10</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/x0c/HandySwitch/releases/download/v1.0.10/HandySwitch-1.0.10.zip" length="1459445" type="application/octet-stream" sparkle:edSignature="JItUgrQyuEWb9UmVd+W7E8tFXH4p6ILd3PJTroXzH6DmD6ZmgdmtrizlgUSA19FqQ8l8Ebu/fGhSwXM7UqwYDQ=="></enclosure>
+        </item>
+    </channel>
+</rss><!-- sparkle-signatures:
+edSignature: +cvgm9D4SY61kjYV4KRfobBGRO1W9lC1ZLr2S7utznaz6wFIU96xy2FyvtmU09jkupl0EDIwmbAueHyDIoUvCQ==
+length: 1110
+-->
