@@ -11,13 +11,13 @@
 		20378AD1EDCFA6ED1A9AB44A /* FeatureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630A4D109FF718C555C3FED1 /* FeatureController.swift */; };
 		29358076D05A40A517EBF6FC /* PreventSleepSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796BA712102AA0F3B7BC4139 /* PreventSleepSchedule.swift */; };
 		2A14825D1AAF0FED1BD1509E /* PreventSleepServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48EB10712D3CCF67D2C7E9E /* PreventSleepServiceTests.swift */; };
-		506BFAACC1B06F7D4BB43A0A /* MacKitOverlay in Frameworks */ = {isa = PBXBuildFile; productRef = BBF50BE61D6387F1B5D02670 /* MacKitOverlay */; };
+		506BFAACC1B06F7D4BB43A0A /* MacKitUpdater in Frameworks */ = {isa = PBXBuildFile; productRef = DAED9C1313A4EA0918BC370D /* MacKitUpdater */; };
 		5787CBBCCF32E2DD1968A011 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF8B6FCB0616DED494E82E3 /* AppDelegate.swift */; };
 		596AA724E54ED04662C88189 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050BB24F9B7C52BB89B071EB /* AppPreferences.swift */; };
 		5A96B71BF159E42B3E4E0886 /* PreventSleepService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CFD9B2B52BD62A6787CC00 /* PreventSleepService.swift */; };
 		63E720AE6BBCAA9857E737F1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC49ADB5796994C4A44991A /* SettingsView.swift */; };
-		69D6FA4380B6D11EB3070BCB /* MacKitCore in Frameworks */ = {isa = PBXBuildFile; productRef = 78E1CB992F5F283544690EBA /* MacKitCore */; };
-		70AB0DC70809567CA1D794A0 /* MacKitLaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 66697B25ACFB6E379472DB9E /* MacKitLaunchAtLogin */; };
+		69D6FA4380B6D11EB3070BCB /* MacKitLaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 66697B25ACFB6E379472DB9E /* MacKitLaunchAtLogin */; };
+		70AB0DC70809567CA1D794A0 /* MacKitLifecycle in Frameworks */ = {isa = PBXBuildFile; productRef = 5A1D47E27CE70295A9EC641F /* MacKitLifecycle */; };
 		80544785EB017F1FA8D9FB83 /* TogglePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C534A89E40015A63568C320A /* TogglePanel.swift */; };
 		828CBBA02F3E40DB659558F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3374716825BC1CDD18BDCB1 /* Assets.xcassets */; };
 		861E2FC39B733BEFB13CD5B6 /* AccessibilityPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86568BAC7DC5852E05A0F66E /* AccessibilityPermission.swift */; };
@@ -26,12 +26,12 @@
 		A08EABB72DB5953A711B8FAE /* AppUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9036A4085BE30CE4D1C92A /* AppUpdater.swift */; };
 		A850137F4C550669FF07FB33 /* MouseScrollService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558AEA78F163E3AC0A40B07 /* MouseScrollService.swift */; };
 		A89E5CFF5DD2AACA5A1149A8 /* DarkModeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6088230C5830F924489D9560 /* DarkModeService.swift */; };
-		B3AC2DAB64AEADA38F3D56B5 /* MacKitLifecycle in Frameworks */ = {isa = PBXBuildFile; productRef = 5A1D47E27CE70295A9EC641F /* MacKitLifecycle */; };
+		B3AC2DAB64AEADA38F3D56B5 /* MacKitOverlay in Frameworks */ = {isa = PBXBuildFile; productRef = BBF50BE61D6387F1B5D02670 /* MacKitOverlay */; };
 		BCB62724DB63D96CA3BA8FF7 /* AutomationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C4BAAF7DB69ACB215654C89 /* AutomationPermission.swift */; };
 		CF2989CF9F4ADB0143EB20F1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D40959C85110B00CDB8167F6 /* Localizable.xcstrings */; };
 		D4DB6203CDCAF497A58D21F8 /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8027C6A89F6391BA0FB8D40 /* LaunchAtLoginManager.swift */; };
 		DBC85C117DE0465A451C9739 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C453427DC90C4097F463DE0 /* StatusItemController.swift */; };
-		DE56E5504F38DBF6939BDF89 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = F212AD84991C0E5AF78D41D4 /* Sparkle */; };
+		DE56E5504F38DBF6939BDF89 /* MacKitCore in Frameworks */ = {isa = PBXBuildFile; productRef = 78E1CB992F5F283544690EBA /* MacKitCore */; };
 		EA23D97B770113B0C3F873A9 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD05CB3A4C939346A2354208 /* SettingsWindowController.swift */; };
 		F1D0F53E81CE30647F7CE121 /* PanelPlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D67442DE3C7065128CF9B1 /* PanelPlacement.swift */; };
 		F6953D8D0259C413848254BF /* TogglePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1181640E1E5BF375A0C62F1C /* TogglePanelView.swift */; };
@@ -95,11 +95,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE56E5504F38DBF6939BDF89 /* Sparkle in Frameworks */,
-				69D6FA4380B6D11EB3070BCB /* MacKitCore in Frameworks */,
-				70AB0DC70809567CA1D794A0 /* MacKitLaunchAtLogin in Frameworks */,
-				B3AC2DAB64AEADA38F3D56B5 /* MacKitLifecycle in Frameworks */,
-				506BFAACC1B06F7D4BB43A0A /* MacKitOverlay in Frameworks */,
+				DE56E5504F38DBF6939BDF89 /* MacKitCore in Frameworks */,
+				69D6FA4380B6D11EB3070BCB /* MacKitLaunchAtLogin in Frameworks */,
+				70AB0DC70809567CA1D794A0 /* MacKitLifecycle in Frameworks */,
+				B3AC2DAB64AEADA38F3D56B5 /* MacKitOverlay in Frameworks */,
+				506BFAACC1B06F7D4BB43A0A /* MacKitUpdater in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,11 +267,11 @@
 			);
 			name = HandySwitch;
 			packageProductDependencies = (
-				F212AD84991C0E5AF78D41D4 /* Sparkle */,
 				78E1CB992F5F283544690EBA /* MacKitCore */,
 				66697B25ACFB6E379472DB9E /* MacKitLaunchAtLogin */,
 				5A1D47E27CE70295A9EC641F /* MacKitLifecycle */,
 				BBF50BE61D6387F1B5D02670 /* MacKitOverlay */,
+				DAED9C1313A4EA0918BC370D /* MacKitUpdater */,
 			);
 			productName = HandySwitch;
 			productReference = 801E5AC9B28C38D128CB11E0 /* HandySwitch.app */;
@@ -307,7 +307,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				27BD240355152551540686FB /* XCRemoteSwiftPackageReference "mac-kit-swift" */,
-				A8350CC9A2BA582BF06E9BEC /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 312E1AC22F89C85130C4CA22 /* Products */;
@@ -668,15 +667,7 @@
 			repositoryURL = "https://github.com/x0c/mac-kit-swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.2;
-			};
-		};
-		A8350CC9A2BA582BF06E9BEC /* XCRemoteSwiftPackageReference "Sparkle" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sparkle-project/Sparkle";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.9.2;
+				minimumVersion = 0.1.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -702,10 +693,10 @@
 			package = 27BD240355152551540686FB /* XCRemoteSwiftPackageReference "mac-kit-swift" */;
 			productName = MacKitOverlay;
 		};
-		F212AD84991C0E5AF78D41D4 /* Sparkle */ = {
+		DAED9C1313A4EA0918BC370D /* MacKitUpdater */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A8350CC9A2BA582BF06E9BEC /* XCRemoteSwiftPackageReference "Sparkle" */;
-			productName = Sparkle;
+			package = 27BD240355152551540686FB /* XCRemoteSwiftPackageReference "mac-kit-swift" */;
+			productName = MacKitUpdater;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

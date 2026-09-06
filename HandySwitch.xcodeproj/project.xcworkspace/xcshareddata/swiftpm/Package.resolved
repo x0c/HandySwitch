@@ -1,13 +1,13 @@
 {
-  "originHash" : "533c24b6776b80dc140e0190df9fc974b5f189bf006de228851fb11eb5e53905",
+  "originHash" : "baa698933ae776986fd0c39010cec359930758c453e37ef2e79e051420eecc4f",
   "pins" : [
     {
       "identity" : "mac-kit-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/x0c/mac-kit-swift",
       "state" : {
-        "revision" : "3568962276c1943d18f6ff09b5b3aea03b2740d8",
-        "version" : "0.1.2"
+        "revision" : "800ea93d69f3c09974e996d18da2a34da7524934",
+        "version" : "0.1.3"
       }
     },
     {

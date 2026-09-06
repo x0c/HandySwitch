@@ -51,12 +51,9 @@ configFiles:
   Release: Configuration/Release.xcconfig
 
 packages:
-  Sparkle:
-    url: https://github.com/sparkle-project/Sparkle
-    from: "2.9.2"
   MacKit:
     url: https://github.com/x0c/mac-kit-swift
-    from: "0.1.2"
+    from: "0.1.3"
 
 fileGroups:
   - Configuration
@@ -99,8 +96,6 @@ targets:
           - $(inherited)
           - "@executable_path/../Frameworks"
     dependencies:
-      - package: Sparkle
-        product: Sparkle
       - package: MacKit
         product: MacKitCore
       - package: MacKit
@@ -109,6 +104,8 @@ targets:
         product: MacKitLifecycle
       - package: MacKit
         product: MacKitOverlay
+      - package: MacKit
+        product: MacKitUpdater
 
   HandySwitchTests:
     type: bundle.unit-test
