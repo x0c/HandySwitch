@@ -30,6 +30,7 @@ xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Rel
 3. **禁止**此时再跑整脚本从「打 dmg」重来：新 dmg 校验和不同，旧票据装不上，等于再排一次公证。
 4. **In Progress**：继续 `info` 轮询；**Rejected**：看 `notarytool log`，修根因后再整脚本重跑。
 5. `raw.githubusercontent.com` 的 appcast 可能短暂缓存旧版；可用 commit 钉死 raw、jsDelivr 或 `git fetch` 对照，再等 main raw 刷新后做终检。
+6. **main 快照已推、tag / Release 中断**（SSH `Connection closed`、tag 推送失败）：不要重跑整脚本（公证产物已在 `build/`）。对**同一**快照 commit 执行 `git push github <commit>:refs/tags/vX.Y.Z`，再 `gh release create`（若尚无）+ `gh release upload … --clobber`，最后按脚本后半段更新 Homebrew 并做匿名终检。
 
 ## 验收清单
 

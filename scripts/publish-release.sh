@@ -122,8 +122,15 @@ push_github_snapshot() {
   else
     commit="$(git commit-tree "${tree}" -m "${message}")"
   fi
-  git -c core.hooksPath=/dev/null push github "${commit}:refs/heads/main"
-  git -c core.hooksPath=/dev/null push github "${commit}:refs/tags/${tag}"
+  git -c core.hooksPath=/dev/null push github "${commit}:refs/heads/main" \
+    || die "推 GitHub main 快照失败"
+  # 标签单独推：主分支成功后若标签断线，重试一次，避免留下「有 commit 无 Release 标签」半成品
+  if ! git -c core.hooksPath=/dev/null push github "${commit}:refs/tags/${tag}"; then
+    echo "推 GitHub tag ${tag} 失败，3 秒后重试…"
+    sleep 3
+    git -c core.hooksPath=/dev/null push github "${commit}:refs/tags/${tag}" \
+      || die "推 GitHub tag ${tag} 失败（main 已更新；可手动：git push github <commit>:refs/tags/${tag} 后继续建 Release）"
+  fi
 }
 
 cd "${ROOT_DIR}"
