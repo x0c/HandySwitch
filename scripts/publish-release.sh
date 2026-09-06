@@ -255,6 +255,7 @@ release_notes_file="${work_dir}/release-notes.md"
 cat > "${release_notes_file}" <<EOF
 HandySwitch ${version}
 
+- New app icon: a clothespin on mint green (navy + coral clamps).
 - Five menu-bar toggles: Clean Mode, Dark Mode, Prevent Sleep, Reverse Mouse Scroll, Smooth Mouse Scroll.
 - Left-click opens the switch panel under the icon; right-click for Launch at Login, Check for Updates, and Quit.
 - Signed, notarized DMG with Sparkle in-app updates.
@@ -332,8 +333,12 @@ if git rev-parse "${tag}" >/dev/null 2>&1; then
 else
   git tag -a "${tag}" -m "${tag}"
 fi
-git push origin main
-git push origin "${tag}"
+# 公开仓用干净快照历史；私有 origin 可能仍是旧开发史，分叉时禁止强推，只告警继续发 GitHub。
+if git push origin main; then
+  git push origin "${tag}" || echo "⚠ 私有 origin 推 tag ${tag} 失败，已跳过（未强推）"
+else
+  echo "⚠ 私有 origin 与本地历史分叉，跳过推送私有镜像（未强推）；公开 GitHub 快照与 Release 继续"
+fi
 
 # ---------- 7. 公开仓快照 + GitHub Release ----------
 log_step "把当前树快照推到 GitHub（不含私有开发史）"

@@ -19,6 +19,8 @@ xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Rel
 
 一条命令：`scripts/publish-release.sh`（签名 → 公证 → Sparkle appcast → GitHub Release → Homebrew cask）。本地私有配置见 `scripts/publish-local.env.example`。只做本机公证包可用 `--local-only`。
 
+公开仓用干净快照历史；若本机 `origin`（Forgejo 私有镜像）与本地分叉，脚本会跳过推私有镜像并继续发 GitHub，**禁止**为此强推私有远端。
+
 ### 发版中断后怎么续（禁止盲目重跑整脚本）
 
 若日志已到「公证 dmg」且有提交编号，进程在轮询 `sleep` 时被杀掉（如 `Terminated: 15`）：
