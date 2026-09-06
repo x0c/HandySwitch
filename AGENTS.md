@@ -103,7 +103,7 @@ scripts/publish-release.sh
 
 ## 文档导航
 
-- [docs/PRODUCT_CONTRACT.md](docs/PRODUCT_CONTRACT.md)：改、优化、评审或排查浮层对齐与样式、防睡预置时长（点预置即开、禁止自定义输入）、深色模式（系统外观）、开关行为、滚轮反转/平滑（含「开平滑不能滚 / 滚动时指针卡住」）前**必读**。
+- [docs/PRODUCT_CONTRACT.md](docs/PRODUCT_CONTRACT.md)：设计、改、优化或评审 App Icon、浮层对齐与样式、防睡预置时长（点预置即开、禁止自定义输入）、深色模式（系统外观）、开关行为、滚轮反转/平滑（含「开平滑不能滚 / 滚动时指针卡住」）前**必读**。不读会把未选定的方向当成生产图标，或改坏已锁体验。
 - [docs/OPERATIONS_GUIDE.md](docs/OPERATIONS_GUIDE.md)：构建、覆盖安装、五开关真机验收、公开发版前**必读**。
 - [docs/OPEN_SOURCE_BENCHMARK.md](docs/OPEN_SOURCE_BENCHMARK.md)：改公开 README / Topics / 安装门面时**必读**。
 - [~/.config/agentsync/docs/MACOS_APP_DEVELOPMENT_GUIDE.md](~/.config/agentsync/docs/MACOS_APP_DEVELOPMENT_GUIDE.md)：菜单栏生命周期**必读**。
