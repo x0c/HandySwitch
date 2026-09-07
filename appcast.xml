@@ -6,6 +6,15 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>HandySwitch</title>
         <item>
+            <title>1.0.14</title>
+            <pubDate>Mon, 07 Sep 2026 15:03:07 +0800</pubDate>
+            <link>https://github.com/x0c/HandySwitch</link>
+            <sparkle:version>16</sparkle:version>
+            <sparkle:shortVersionString>1.0.14</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/x0c/HandySwitch/releases/download/v1.0.14/HandySwitch-1.0.14.zip" length="4619798" type="application/octet-stream" sparkle:edSignature="8e4K3UsqTaymY/afeDoeal9qrcmDwxm5E4oOgQfiaHBZ5JwJ1VtBwTVmAAsT6tQj00rtaKzbihI+ygyREJpdDA=="/>
+        </item>
+        <item>
             <title>1.0.12</title>
             <pubDate>Sun, 06 Sep 2026 20:35:19 +0800</pubDate>
             <link>https://github.com/x0c/HandySwitch</link>
@@ -35,6 +44,6 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     </channel>
 </rss>
 <!-- sparkle-signatures:
-edSignature: J0JZBoMAzDgRUDcejno4BxlWqC2xFvgZ7XuPnokxEr6tbDpNa41S/V6JAbXsRpySrqiEgMRlH7NBF8phiV+4Bg==
-length: 2436
+edSignature: xrak99PXzo5SVJ+2MtjZhKI4IDQF0Ts1X+0LQLAptb/PxjDLg8uWJGTdoRZAQ2sBgiTyi8ExH7LPHbbTZ6QUDg==
+length: 3103
 -->
