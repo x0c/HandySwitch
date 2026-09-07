@@ -25,6 +25,8 @@
 
 - **图标即主入口**：核心能力完全靠菜单栏图标（左键浮层）；**禁止**提供 Hide Menu Bar Icon / Show Menu Bar Icon，也禁止对外暴露写入「隐藏图标」的偏好路径。启动强制图标可见。
 - **开机自启静默**：登录项拉起时零窗口——不自动打开主窗口 / 设置。用 `LoginLaunchDetector.isLaunchedAsLoginItem` + `MenuBarReopenPolicy.shouldShowRecoveryWindow(..., isLoginLaunch:)` 判定；用户主动从应用程序 / Spotlight / Dock 再次打开才可出示窗口。
+- **右键与主窗口对等（2026-09-07）**：右键有的开机自启、检查更新、退出，主窗口须有同效入口（「打开主窗口」在已开窗时不必再挂）。权威见全局菜单栏开发指南裁定。
+- **二次启动防呆（2026-09-07）**：首次用户启动零配置窗；后台就绪后默认 60 秒内再次从应用程序 / Spotlight 打开，须出示主窗口（`MenuBarReopenPolicy.presentation(..., menubarIsPrimaryEntry: true, secondsSinceReady:)`）。登录拉起除外。
 
 ## 五个开关
 
@@ -100,8 +102,8 @@
 ## 文案与完成态
 
 - 用户可见文案默认英文，并提供简体中文（跟随系统每应用语言）。
-- 菜单栏完成态：打开主窗口、开机自启三态、检查更新入口、退出；**无**隐藏图标项。开机自启默认关；待批准不得显示成已开启；登录项拉起必须静默。
-- **检查更新**：已配置 `SUPublicEDKey` 与 `SUFeedURL`（指向本仓公开 `appcast.xml`）后允许自动启动 Sparkle；缺任一项时禁止 `startingUpdater: true`，点检查更新则提示「尚未配置更新」。
+- 菜单栏完成态：打开主窗口、开机自启三态、检查更新入口、退出；**无**隐藏图标项。开机自启默认关；待批准不得显示成已开启；登录项拉起必须静默。**主窗口须含**开机自启、检查更新、退出（与右键对等）。
+- **检查更新**：已配置 `SUPublicEDKey` 与 `SUFeedURL`（指向本仓公开 `appcast.xml`）后允许自动启动 Sparkle；缺任一项时禁止 `startingUpdater: true`，点检查更新则提示「尚未配置更新」。菜单与主窗口都要有入口。
 
 ## 明确不做
 

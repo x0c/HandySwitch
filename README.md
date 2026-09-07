@@ -34,7 +34,7 @@ brew install --cask handy-switch
 
 Grab the latest **signed and notarized** `HandySwitch-x.y.z.dmg` from the [releases](https://github.com/x0c/HandySwitch/releases/latest) page, then drag HandySwitch to `/Applications`.
 
-HandySwitch checks for updates automatically (via [Sparkle](https://sparkle-project.org)). Right-click the menu bar icon for **Check for Updates…**.
+HandySwitch checks for updates automatically (via [Sparkle](https://sparkle-project.org)). Use **Check for Updates…** from the menu bar right-click menu or the main window.
 
 ### Build from source
 
@@ -54,7 +54,7 @@ open /Applications/HandySwitch.app
 ## Usage
 
 1. Click the menu bar icon to open the switch panel under the icon. Click outside to close.
-2. Right-click for **Open Main Window**, **Launch at Login**, **Check for Updates…**, or **Quit**.
+2. Right-click for **Open Main Window**, **Launch at Login**, **Check for Updates…**, or **Quit**. The main window mirrors launch-at-login, check-for-updates, and quit (so those stay reachable if you only open the window).
 3. **Clean Mode** and scroll toggles need **Accessibility**. **Dark Mode** needs **Automation** (System Events). If a switch cannot turn on, follow the in-app link to System Settings.
 4. In Clean Mode, hold **Esc** for about three seconds to exit (the only exit gesture).
 5. Launch at login is off by default. Login launches stay silent (no window).

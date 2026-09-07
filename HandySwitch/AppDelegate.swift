@@ -10,6 +10,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var panel: TogglePanel?
     private var statusItemController: StatusItemController?
     private var commaMonitor: Any?
+    private var readyAt = Date()
     private let appUpdater = AppUpdater()
     private let terminationGuard = TerminationGuard()
     private let featureController = FeatureController.shared
@@ -55,6 +56,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // 图标始终可见；登录项拉起禁止弹设置窗。
         let isLoginLaunch = LoginLaunchDetector.isLaunchedAsLoginItem
+        readyAt = Date()
         if MenuBarReopenPolicy.shouldShowRecoveryWindow(
             iconVisible: true,
             isLoginLaunch: isLoginLaunch
@@ -72,12 +74,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        // 图标始终可见，reopen 不因隐藏策略弹窗；需要设置时用户点「打开主窗口」。
-        _ = MenuBarReopenPolicy.presentation(
+        // 菜单栏即主入口：就绪后时间窗内二次打开须出配置窗，与图标是否可见无关。
+        if MenuBarReopenPolicy.presentation(
             iconVisible: true,
             isReopenOrLaunch: true,
-            isLoginLaunch: false
-        )
+            isLoginLaunch: false,
+            menubarIsPrimaryEntry: true,
+            secondsSinceReady: Date().timeIntervalSince(readyAt)
+        ) == .showRecoveryWindow {
+            showMainWindow()
+        }
         return true
     }
 

@@ -55,7 +55,7 @@ Remote：`app-macos` → GitHub 公开 [`x0c/HandySwitch`](https://github.com/x0
 
 - [~/.config/agentsync/docs/MACOS_APP_DEVELOPMENT_GUIDE.md](~/.config/agentsync/docs/MACOS_APP_DEVELOPMENT_GUIDE.md)：改、评审或排查菜单栏图标、开机自启、恢复窗口或检查更新前**必读**。不读会在登录时弹出设置窗，或误加回「隐藏菜单栏图标」。
 - [app-macos/AGENTS.md](app-macos/AGENTS.md)：改、评审或排查 macOS 客户端工程、菜单栏浮层、五开关、覆盖安装、公开开源或发版前**必读**。不读会把内网地址推进公开仓，或漏掉签名公证更新链路。
-- [app-macos/docs/PRODUCT_CONTRACT.md](app-macos/docs/PRODUCT_CONTRACT.md)：改、优化、评审或排查浮层对齐与样式、防睡预置时长（点预置即开、禁止自定义输入）、开关的用户可见行为、清洁退出手势、媒体键禁令、防睡语义、深色模式（系统外观）、滚轮反转/平滑（含「开平滑不能滚 / 滚动时指针卡住」）、左右键分工或权限前**必读**。不读会把已锁体验改掉或重新引入音乐误触。
+- [app-macos/docs/PRODUCT_CONTRACT.md](app-macos/docs/PRODUCT_CONTRACT.md)：改、优化、评审或排查浮层对齐与样式、防睡预置时长（点预置即开、禁止自定义输入）、开关的用户可见行为、清洁退出手势、媒体键禁令、防睡语义、深色模式（系统外观）、滚轮反转/平滑（含「开平滑不能滚 / 滚动时指针卡住」）、App Icon（衣夹已锁）、左右键分工或权限前**必读**。不读会把已锁体验或衣夹图标改掉，或重新引入音乐误触。
 - [app-macos/docs/OPERATIONS_GUIDE.md](app-macos/docs/OPERATIONS_GUIDE.md)：构建、覆盖安装、五开关真机验收、公开发版前**必读**。
 - [app-macos/docs/OPEN_SOURCE_BENCHMARK.md](app-macos/docs/OPEN_SOURCE_BENCHMARK.md)：改公开 README / Topics / 安装门面时**必读**。不读会对标漂移或漏掉截图与平台声明。
 - [~/Codes/_standards/swift.md](../_standards/swift.md)：新建、评审或改造本 macOS 应用前**必读**。
@@ -77,8 +77,8 @@ Remote：`app-macos` → GitHub 公开 [`x0c/HandySwitch`](https://github.com/x0
 
 - 用 `xcodegen generate` 生成工程，禁止手改 `.xcodeproj`。
 - Bundle ID：`top.caozc.HandySwitch`；展示名：`HandySwitch`。
-- `LSUIElement`；关沙盒；依赖 MacKit ≥0.1.2（Core / LaunchAtLogin / Lifecycle）与 Sparkle（`SUPublicEDKey` + `SUFeedURL` 已配齐，允许 `startingUpdater: true`）。
-- 左键浮层、右键菜单；图标常驻，无隐藏图标能力。
+- `LSUIElement`；关沙盒；依赖 MacKit ≥0.1.4（Core / LaunchAtLogin / Lifecycle / Overlay / Updater）与 Sparkle（`SUPublicEDKey` + `SUFeedURL` 已配齐，允许 `startingUpdater: true`）。
+- 左键浮层、右键菜单；图标常驻，无隐藏图标能力。菜单栏主入口：`MenuBarReopenPolicy` 须传 `menubarIsPrimaryEntry: true` + `secondsSinceReady`；右键能力与主窗口对等。
 - **Apple Events（深色模式）**：`project.yml` 的 `entitlements.properties` **必须**含 `com.apple.security.automation.apple-events: true`（并同步落在 `HandySwitch.entitlements`），`Info.plist` 必须有 `NSAppleEventsUsageDescription`。**禁止**只写 `entitlements.path` 不写 `properties`——`xcodegen generate` 会把 plist 写成空 `<dict/>`，加固运行时下静默拒绝、不弹授权窗、自动化列表永远没有本应用。覆盖安装后执行：`codesign -d --entitlements :- /Applications/HandySwitch.app` 须能看到该键。
 - **清洁模式退出**：仅按住 Esc 约 3 秒；禁止 ⌃⌘Esc 等其它捷径（见产品契约）。
 

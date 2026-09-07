@@ -8,6 +8,7 @@ struct SettingsView: View {
         case launch
         case openLogin
         case checkUpdates
+        case quit
     }
 
     var body: some View {
@@ -49,6 +50,12 @@ struct SettingsView: View {
                     AppDelegate.shared?.checkForUpdates()
                 }
                 .focused($focused, equals: .checkUpdates)
+                .focusEffectDisabled()
+
+                Button(String(localized: "menu.quit")) {
+                    AppDelegate.shared?.requestTermination()
+                }
+                .focused($focused, equals: .quit)
                 .focusEffectDisabled()
             }
         }

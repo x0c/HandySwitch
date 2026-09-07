@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/x0c/mac-kit-swift",
       "state" : {
-        "revision" : "800ea93d69f3c09974e996d18da2a34da7524934",
-        "version" : "0.1.3"
+        "revision" : "3a27d6ec4a62f32eb836c66a6dc4140c5202187a",
+        "version" : "0.1.4"
       }
     },
     {

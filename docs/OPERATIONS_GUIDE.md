@@ -35,8 +35,8 @@ xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Rel
 ## 验收清单
 
 1. 左键：浮层只有五个开关（清洁 / 深色 / 防睡 / 滚轮反转 / 滚轮平滑）；点外面关；不掉到屏幕角落。
-2. 右键：主窗口、开机自启、检查更新、退出可用；**无** Hide Menu Bar Icon；设置里**无** Show Menu Bar Icon。
-3. 登录项拉起：不自动弹主窗口 / 设置；菜单栏图标仍在。用户主动从应用程序再开才可出示主窗口。
+2. 右键：主窗口、开机自启、检查更新、退出可用；**无** Hide Menu Bar Icon；设置里**无** Show Menu Bar Icon。主窗口须有开机自启、检查更新、退出对等入口。
+3. 登录项拉起：不自动弹主窗口 / 设置；菜单栏图标仍在。用户主动从应用程序再开才可出示主窗口。菜单栏主入口：首次启动无配置窗；就绪后约 60 秒内再次打开须出主窗口。
 4. Dark Mode：拨动后应先出现系统「控制 System Events」授权窗（若尚未决定）；允许后菜单栏 / Dock / 支持外观的应用整体切换深浅。`codesign -d --entitlements` 须含 `com.apple.security.automation.apple-events`。自动化列表里没有本应用时，不要只指路系统设置——应确认能力声明齐全后再拨一次；列表项只在弹过授权窗之后才出现。
 5. Prevent Sleep 开：`pmset -g assertions` 能看到本应用断言；关或退出后消失。
 6. Clean Mode：黑屏；媒体键不触发音乐；仅按住 Esc 约 3 秒可退出（⌃⌘Esc 无效）。

@@ -34,7 +34,7 @@ brew install --cask handy-switch
 
 从 [Releases](https://github.com/x0c/HandySwitch/releases/latest) 下载最新的**已签名并公证**的 `HandySwitch-x.y.z.dmg`，把 HandySwitch 拖进「应用程序」。
 
-HandySwitch 会通过 [Sparkle](https://sparkle-project.org) 自动检查更新。也可右键菜单栏图标选择 **检查更新…**。
+HandySwitch 会通过 [Sparkle](https://sparkle-project.org) 自动检查更新。也可在右键菜单或主窗口里点 **检查更新…**。
 
 ### 从源码构建
 
@@ -54,7 +54,7 @@ open /Applications/HandySwitch.app
 ## 用法
 
 1. 左键点菜单栏图标，在图标下方打开开关浮层；点外面关闭。
-2. 右键可打开主窗口、开机自启、检查更新或退出。
+2. 右键可打开主窗口、开机自启、检查更新或退出；主窗口里同样有开机自启、检查更新与退出。
 3. **清洁模式**与滚轮相关开关需要**辅助功能**；**深色模式**需要**自动化**（System Events）。打不开时按应用内提示去系统设置授权。
 4. 清洁模式中，按住 **Esc** 约三秒退出（唯一出口）。
 5. 开机自启默认关闭；登录项拉起时保持静默（不弹窗）。
