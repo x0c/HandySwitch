@@ -404,3 +404,19 @@ The staple and validate action worked!
 ✓ 已产出可双击直接打开的 dmg：/Users/geraltgraham/Codes/HandySwitch/app-macos/build/HandySwitch-1.0.14.dmg
 
 [1;34m▶ 提交改动并打 tag[0m
+[main a90766a] chore: 发布 v1.0.14
+ 6 files changed, 492 insertions(+), 4 deletions(-)
+ create mode 100644 logs/publish-1.0.14-20260907-145957.log
+ create mode 100644 logs/publish-1.0.14-20260907-150132.log
+ create mode 100644 logs/publish-1.0.14.latest-path
+ create mode 100644 logs/publish-1.0.14.pid
+To ssh://forgejo.caozc.top:2222/Max/HandySwitch.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'ssh://forgejo.caozc.top:2222/Max/HandySwitch.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+⚠ 私有 origin 与本地历史分叉，跳过推送私有镜像（未强推）；公开 GitHub 快照与 Release 继续
+
+[1;34m▶ 把当前树快照推到 GitHub（不含私有开发史）[0m
