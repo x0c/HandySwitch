@@ -13,6 +13,10 @@
 - **Selected direction (2026-09-08):** a flat circular rotary knob with a small circular indicator at the upper right and a separate short rotation arc. The selected palette is bright turquoise background, deep teal knob and matching arc, and pale aqua indicator. Preserve the selected geometry and palette during independent master refinement. The user approved integration into the project app icon. Center the main circle on the canvas and preserve a balanced circle-to-canvas proportion; the separate upper-right arc must not pull the circle off center. Verify the result at small sizes before installation.
 - Existing asset locations: `design/app-icon/AppIcon-1024.png` and `HandySwitch/Assets.xcassets/AppIcon.appiconset/`. The approved cyan artwork is integrated. At 1024 px the circle diameter is approximately 649 px (63.4%); its center is within 0.6% of canvas center.
 
+## Menu bar icon
+
+- **User decision (2026-09-08):** use the same rotary-control motif as the approved App Icon. Preserve the circular body, upper-right circular indicator, and detached upper-right arc. Remove the turquoise background and map the indicator to a transparent hole in a monochrome template; the system supplies light/dark coloring. Keep existing left-click and right-click behavior. The 18 pt template is rebuilt by `scripts/generate-status-icon.py`, with 1x and 2x renditions in `StatusBarIcon.imageset`.
+
 ## 左右键分工
 
 | 操作 | 结果 |

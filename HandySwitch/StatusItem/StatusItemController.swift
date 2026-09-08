@@ -43,7 +43,8 @@ final class StatusItemController: NSObject {
 
     private func configureButton() {
         guard let button = statusItem.button else { return }
-        let image = NSImage(systemSymbolName: "switch.2", accessibilityDescription: String(localized: "status.item.accessibility"))
+        let image = NSImage(named: "StatusBarIcon")
+        image?.size = NSSize(width: 18, height: 18)
         image?.isTemplate = true
         button.image = image
         button.image?.isTemplate = true
