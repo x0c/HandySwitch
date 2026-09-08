@@ -6,11 +6,12 @@
 
 菜单栏点开就是几个开关，让日常用 Mac 更顺手。
 
-## 应用图标（已锁）
+## App icon direction
 
-- **定稿（2026-09-06）**：最终 App Icon 为「衣夹」——一枚正在夹合的衣夹为唯一主轮廓；简洁纸艺分层；薄荷绿背景、海军蓝上夹片、珊瑚色下夹片。
-- **禁止**：混入字母、手势、卡扣、旋钮、铁路、日月，或复用已撤销的珊瑚色拨杆 / 紫色底座 / 工业硬件语义。
-- 母版：`design/app-icon/AppIcon-1024.png`；工程资源在 `HandySwitch/Assets.xcassets/AppIcon.appiconset/`。探索方向板与未选中切图一律丢弃，禁止再接入。
+- **User decision (2026-09-08): no clothespin.** The previous clothespin direction is revoked. Do not reuse it in new proposals or production assets.
+- **Semantic requirement (2026-09-08):** proposals must visibly relate to switching and controlling the Mac through recognizable switches, push buttons, or sliders. Vary their form and composition; do not fill a direction board with unrelated objects such as leaves, fans, or paper airplanes. Visual novelty alone is insufficient.
+- **Selected direction (2026-09-08):** a flat circular rotary knob with a small circular indicator at the upper right and a separate short rotation arc. The selected palette is bright turquoise background, deep teal knob and matching arc, and pale aqua indicator. Preserve the selected geometry and palette during independent master refinement. The user approved integration into the project app icon. Center the main circle on the canvas and preserve a balanced circle-to-canvas proportion; the separate upper-right arc must not pull the circle off center. Verify the result at small sizes before installation.
+- Existing asset locations: `design/app-icon/AppIcon-1024.png` and `HandySwitch/Assets.xcassets/AppIcon.appiconset/`. The approved cyan artwork is integrated. At 1024 px the circle diameter is approximately 649 px (63.4%); its center is within 0.6% of canvas center.
 
 ## 左右键分工
 
