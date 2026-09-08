@@ -262,7 +262,7 @@ release_notes_file="${work_dir}/release-notes.md"
 cat > "${release_notes_file}" <<EOF
 HandySwitch ${version}
 
-- New app icon: a clothespin on mint green (navy + coral clamps).
+- Matching app and menu-bar icons: a centered rotary control with an upper-right indicator and arc.
 - Five menu-bar toggles: Clean Mode, Dark Mode, Prevent Sleep, Reverse Mouse Scroll, Smooth Mouse Scroll.
 - Left-click opens the switch panel under the icon; right-click for Launch at Login, Check for Updates, and Quit.
 - Signed, notarized DMG with Sparkle in-app updates.
