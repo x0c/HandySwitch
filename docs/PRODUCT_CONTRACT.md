@@ -12,10 +12,7 @@
 - **Semantic requirement (2026-09-08):** proposals must visibly relate to switching and controlling the Mac through recognizable switches, push buttons, or sliders. Vary their form and composition; do not fill a direction board with unrelated objects such as leaves, fans, or paper airplanes. Visual novelty alone is insufficient.
 - **Selected direction (2026-09-08):** a flat circular rotary knob with a small circular indicator at the upper right and a separate short rotation arc. The selected palette is bright turquoise background, deep teal knob and matching arc, and pale aqua indicator. Preserve the selected geometry and palette during independent master refinement. The user approved integration into the project app icon. Center the main circle on the canvas and preserve a balanced circle-to-canvas proportion; the separate upper-right arc must not pull the circle off center. Verify the result at small sizes before installation.
 - Existing asset locations: `design/app-icon/AppIcon-1024.png` and `HandySwitch/Assets.xcassets/AppIcon.appiconset/`. The approved cyan artwork is integrated. At 1024 px the circle diameter is approximately 649 px (63.4%); its center is within 0.6% of canvas center.
-<<<<<<< HEAD
 - **Marketing / README icon:** `docs/images/app-icon.png` (referenced by `README.md` and `README.zh-CN.md`) must show the same rotary knob — never the revoked clothespin. When the App Icon master changes, regenerate this file from `design/app-icon/AppIcon-1024.png` (512×512 is enough for the README).
-=======
->>>>>>> github/main
 
 ## Menu bar icon
 
