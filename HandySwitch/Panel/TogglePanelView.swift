@@ -9,15 +9,17 @@ struct TogglePanelView: View {
     private static let iconColumn: CGFloat = 24
     private static let rowSpacing: CGFloat = 12
 
+    private static let cardCornerRadius: CGFloat = 12
+
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 8) {
             HStack {
                 Text("HandySwitch").font(.system(size: 13, weight: .semibold))
-                Spacer()
+                Spacer(minLength: 0)
             }
             .padding(.horizontal, 12)
-            .padding(.top, 10)
-            .padding(.bottom, 8)
+            .padding(.vertical, 10)
+            .background(cardFill, in: RoundedRectangle(cornerRadius: Self.cardCornerRadius))
 
             VStack(spacing: 0) {
                 row("panel.cleanMode", icon: "sparkles", isOn: Binding(
@@ -34,7 +36,7 @@ struct TogglePanelView: View {
                 row("panel.smoothMouseScroll", icon: "water.waves", isOn: Binding(
                     get: { model.isSmoothMouseScrollEnabled }, set: { model.setSmoothMouseScrollEnabled($0) }))
             }
-            .background(Color(nsColor: .windowBackgroundColor), in: RoundedRectangle(cornerRadius: 12))
+            .background(cardFill, in: RoundedRectangle(cornerRadius: Self.cardCornerRadius))
 
             if model.needsAccessibilityHelp {
                 helpBanner(
@@ -59,6 +61,10 @@ struct TogglePanelView: View {
         .fixedSize(horizontal: false, vertical: true)
         .focusEffectDisabled()
         .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { onHeightChange($0) }
+    }
+
+    private var cardFill: Color {
+        Color(nsColor: .windowBackgroundColor)
     }
 
     private var separator: some View {

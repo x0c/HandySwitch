@@ -18,6 +18,12 @@
 
 - **User decision (2026-09-08):** use the same rotary-control motif as the approved App Icon. Preserve the circular body, upper-right circular indicator, and detached upper-right arc. Remove the turquoise background and map the indicator to a transparent hole in a monochrome template; the system supplies light/dark coloring. Keep existing left-click and right-click behavior. The 18 pt template is rebuilt by `scripts/generate-status-icon.py`, with 1x and 2x renditions in `StatusBarIcon.imageset`.
 
+## 浮层样式（已锁）
+
+- **外层玻璃 / 内层实底（2026-09-10）**：整窗外框是贴菜单栏的玻璃功能层；标题「HandySwitch」与开关列表都必须落在同一套**圆角矩形实底**卡片上（系统 `windowBackgroundColor`），禁止标题字直接压在玻璃上。
+- 内卡片圆角与窗外框同心：外圆角 20、内边距 8 → 内卡片圆角 12。标题卡与开关卡之间保留窄缝，露出外层玻璃。
+- 没打磨完的半成品禁止进浮层。
+
 ## 左右键分工
 
 | 操作 | 结果 |
