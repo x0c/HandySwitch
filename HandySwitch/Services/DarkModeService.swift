@@ -58,6 +58,11 @@ final class DarkModeService {
         }
 
         Task { [weak self] in
+            // Activate on main first so the TCC sheet is not buried for LSUIElement apps.
+            await MainActor.run {
+                NSApp.activate(ignoringOtherApps: true)
+            }
+
             // 授权窗会阻塞线程，必须离开主线程，否则浮层卡死、系统也不弹窗。
             let status = await Task.detached(priority: .userInitiated) {
                 let current = AutomationPermission.currentSystemEventsStatus()
@@ -71,6 +76,7 @@ final class DarkModeService {
             }.value
 
             guard let self, generation == self.toggleGeneration else { return }
+            Self.logger.info("System Events permission status=\(status)")
 
             guard AutomationPermission.isAllowed(status) else {
                 Self.logger.error("System Events 自动化未授权 status=\(status)")

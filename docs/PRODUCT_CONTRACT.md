@@ -61,6 +61,7 @@
 - **镜像系统**：开关反映系统当前外观；在系统设置或控制中心改外观时，浮层打开时应同步。**不要**把深色状态写进本应用偏好并在启动时强行重放——会与系统「自动」和外部分切换打架。
 - **权限与实现**：经 System Events 切换外观；加固运行时 / Apple Events /「自动化列表没有本应用」→ 全局 [macos-system-permissions.md](/Users/geraltgraham/Codes/_standards/workspace-docs/swift-docs/macos-system-permissions.md)。异步拨回须代际作废 → [MACOS_ASYNC_UI_STATE_GUIDE.md](~/.config/agentsync/docs/MACOS_ASYNC_UI_STATE_GUIDE.md)。
 - 缺自动化权限时：开关打不开（或拨动后回弹）。**未弹过系统授权窗时，自动化列表本来就不会有 HandySwitch**——禁止把用户空指到设置里找；应引导再拨深色模式并点允许，列表项只在弹过窗之后才出现。仅当用户已拒绝后，才提供跳到系统设置 › 隐私与安全性 › 自动化。
+- **授权窗必须看得见（2026-09-10）**：本应用是菜单栏代理（无 Dock 图标）。申请 System Events 前须短暂 `activate`（必要时临时切到普通激活策略），并用真实 Apple Event / 外观读取触发 TCC；禁止只做静默查询后假定「用户已经看到弹窗」。若用户反馈「没有任何申请弹出」，先核 entitlement + 用途串，再核是否未激活导致系统表单被压在后面。
 - **禁止**用私有 SkyLight 外观 API 当主路径（易碎、难公证）；**禁止**做成 Night Shift / 色温开关却仍叫深色模式。
 
 ### 3. Prevent Sleep（防止睡眠 / Keep Awake）
