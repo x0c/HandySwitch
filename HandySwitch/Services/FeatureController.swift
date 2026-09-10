@@ -22,6 +22,7 @@ final class FeatureController {
     private(set) var isSmoothMouseScrollEnabled = false
     private(set) var needsAccessibilityHelp = false
     private(set) var needsAutomationHelp = false
+    private(set) var automationAccessDenied = false
 
     private init() {
         preventSleep.onExpired = { [weak self] in
@@ -75,6 +76,11 @@ final class FeatureController {
 
     func setDarkModeEnabled(_ enabled: Bool) {
         darkMode.setEnabled(enabled)
+        syncDarkModeFromService()
+    }
+
+    func retryAutomationAccess() {
+        darkMode.retryAutomationAccess()
         syncDarkModeFromService()
     }
 
@@ -146,6 +152,7 @@ final class FeatureController {
     private func syncDarkModeFromService() {
         isDarkModeEnabled = darkMode.isDarkMode
         needsAutomationHelp = darkMode.needsAutomationHelp
+        automationAccessDenied = darkMode.automationAccessDenied
     }
 
     private func applyMouseScrollFromPreferences() {

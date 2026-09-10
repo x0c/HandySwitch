@@ -13,15 +13,15 @@ struct TogglePanelView: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            HStack {
-                Text("HandySwitch").font(.system(size: 13, weight: .semibold))
-                Spacer(minLength: 0)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-            .background(cardFill, in: RoundedRectangle(cornerRadius: Self.cardCornerRadius))
-
             VStack(spacing: 0) {
+                HStack {
+                    Text("HandySwitch").font(.system(size: 13, weight: .semibold))
+                    Spacer(minLength: 0)
+                }
+                .padding(.horizontal, 12)
+                .padding(.top, 10)
+                .padding(.bottom, 8)
+
                 row("panel.cleanMode", icon: "sparkles", isOn: Binding(
                     get: { model.isCleanModeActive }, set: { model.setCleanModeActive($0) }))
                 separator
@@ -48,12 +48,21 @@ struct TogglePanelView: View {
             }
 
             if model.needsAutomationHelp {
-                helpBanner(
-                    icon: "gearshape.2",
-                    message: "panel.automationNeeded",
-                    actionTitle: "panel.openAutomation",
-                    action: AutomationPermission.openSystemSettings
-                )
+                if model.automationAccessDenied {
+                    helpBanner(
+                        icon: "gearshape.2",
+                        message: "panel.automationDenied",
+                        actionTitle: "panel.openAutomation",
+                        action: AutomationPermission.openSystemSettings
+                    )
+                } else {
+                    helpBanner(
+                        icon: "gearshape.2",
+                        message: "panel.automationNeeded",
+                        actionTitle: "panel.retryAutomation",
+                        action: { model.retryAutomationAccess() }
+                    )
+                }
             }
         }
         .padding(8)

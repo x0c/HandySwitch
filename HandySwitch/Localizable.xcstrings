@@ -416,13 +416,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Allow HandySwitch when macOS asks to control System Events. If it is missing from Automation, toggle Dark Mode again after updating—the entry appears only after that prompt."
+            "value": "Toggle Dark Mode and allow the system prompt. HandySwitch appears in Automation only after that."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "请在系统弹窗里允许 HandySwitch 控制「系统事件」。若自动化列表里没有它：更新后再拨一次深色模式——列表只会在弹过授权窗之后才出现该项。"
+            "value": "请拨一次深色模式，并在系统弹窗里点允许。自动化列表要等弹过窗后才会出现 HandySwitch。"
+          }
+        }
+      }
+    },
+    "panel.automationDenied": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow HandySwitch to control System Events in Automation."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请在系统设置 › 自动化里允许 HandySwitch 控制「系统事件」。"
           }
         }
       }
@@ -440,6 +457,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "打开设置"
+          }
+        }
+      }
+    },
+    "panel.retryAutomation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Again"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再试一次"
           }
         }
       }

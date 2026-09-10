@@ -12,6 +12,8 @@ final class DarkModeService {
 
     private(set) var isDarkMode = false
     private(set) var needsAutomationHelp = false
+    /// True only after the user refused System Events control — Settings then has an entry.
+    private(set) var automationAccessDenied = false
     var onStatusChange: (() -> Void)?
 
     /// 观察者令牌仅用于移除；deinit 可能离开 MainActor，故用 unsafe。
@@ -51,6 +53,7 @@ final class DarkModeService {
 
         if enabled == isDarkMode {
             needsAutomationHelp = false
+            automationAccessDenied = false
             return
         }
 
@@ -72,6 +75,7 @@ final class DarkModeService {
             guard AutomationPermission.isAllowed(status) else {
                 Self.logger.error("System Events 自动化未授权 status=\(status)")
                 self.needsAutomationHelp = true
+                self.automationAccessDenied = AutomationPermission.isDenied(status)
                 self.refreshFromSystem()
                 self.onStatusChange?()
                 return
@@ -81,14 +85,22 @@ final class DarkModeService {
                 try Self.runAppleScript(enabled ? Self.onScript : Self.offScript)
                 self.isDarkMode = enabled
                 self.needsAutomationHelp = false
+                self.automationAccessDenied = false
                 self.onStatusChange?()
             } catch {
                 Self.logger.error("切换系统深色模式失败：\(error.localizedDescription, privacy: .public)")
                 self.needsAutomationHelp = true
+                // Script failure after allow is rare; prefer retry over Settings.
+                self.automationAccessDenied = false
                 self.refreshFromSystem()
                 self.onStatusChange?()
             }
         }
+    }
+
+    /// Re-request System Events access and apply the intended appearance if allowed.
+    func retryAutomationAccess() {
+        setEnabled(!isDarkMode)
     }
 
     private static func readIsDark() -> Bool {
