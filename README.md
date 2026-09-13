@@ -6,7 +6,7 @@
   <img src="docs/images/app-icon.png" width="128" height="128" alt="HandySwitch app icon">
 </p>
 
-HandySwitch is a **minimal macOS menu bar switch panel**. Left-click the icon for a few everyday toggles — Clean Mode, Dark Mode, Prevent Sleep, Reverse Mouse Scroll, and Smooth Mouse Scroll — without digging through System Settings.
+**Toggle macOS dark mode and prevent sleep from the menu bar** without opening System Settings. Left-click for Clean Mode, Dark Mode, Prevent Sleep, Reverse Mouse Scroll, and Smooth Mouse Scroll.
 
 It is not OnlySwitch or Mos. There is no feature supermarket, no per-app scroll profiles, and no Dock icon. The switches live under the menu bar icon.
 
