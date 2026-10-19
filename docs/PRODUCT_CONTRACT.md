@@ -131,3 +131,7 @@ Release publication preserves the configured Git hook chain; tracked build/relea
 功能超市、按应用滚动配置、鼠标按键重映射、隐藏桌面图标当清洁、半成品入口、App Store / 沙盒、媒体命令中心。
 
 <!-- 该文档整理/压缩于 2026-09-05 -->
+
+## Settings 1.0.20 delivery evidence
+
+The signed, notarized/stapled 1.0.20 (22) app is installed. The real final Settings window opened through the native menu action and its 480 × 197 static light contents were captured and inspected under lock; earlier English and Chinese light layouts also fit without scrolling. Eight tests and universal Release build/analyze passed with the individual retained diagnostics in OPERATIONS_GUIDE. Physical keyboard, VoiceOver and dark appearance remain unverified in this locked session. Both [DMG and update ZIP](https://github.com/x0c/HandySwitch/releases/tag/v1.0.20) were downloaded anonymously in full and byte-matched to the notarized local artifacts; the signed feed is build 22 and Homebrew is 1.0.20.
