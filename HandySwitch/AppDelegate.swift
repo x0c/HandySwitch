@@ -9,7 +9,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var panel: TogglePanel?
     private var statusItemController: StatusItemController?
-    private var commaMonitor: Any?
     private var readyAt = Date()
     private let appUpdater = AppUpdater()
     private let terminationGuard = TerminationGuard()
@@ -44,15 +43,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         statusItemController?.isVisible = true
 
         featureController.startPersistedFeatures()
-
-        commaMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-            let command = event.modifierFlags.intersection(.deviceIndependentFlagsMask).contains(.command)
-            if command, event.charactersIgnoringModifiers == "," {
-                SettingsWindowController.shared.show()
-                return nil
-            }
-            return event
-        }
 
         // 图标始终可见；登录项拉起禁止弹设置窗。
         let isLoginLaunch = LoginLaunchDetector.isLaunchedAsLoginItem
@@ -89,9 +79,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         featureController.prepareForTermination()
-        if let commaMonitor {
-            NSEvent.removeMonitor(commaMonitor)
-        }
     }
 
     func requestTermination(terminate: () -> Void = { NSApplication.shared.terminate(nil) }) {

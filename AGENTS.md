@@ -1,8 +1,8 @@
 <!-- managed:inherited-agents:start -->
-<!-- source: /Users/geraltgraham/Codes/HandySwitch/AGENTS.md -->
+<!-- source: ~/Codes/HandySwitch/AGENTS.md -->
 # HandySwitch
 
-通用工程规范：[Swift 规范](../_standards/swift.md)
+通用工程规范：[Swift 规范](~/Codes/_standards/swift.md)
 
 HandySwitch 是本机极简菜单栏开关：点开就是几个开关，让日常用 Mac 更顺手。小学生一看名字就知道是「顺手开关」。
 
@@ -54,13 +54,13 @@ Remote：`app-macos` → GitHub 公开 [`x0c/HandySwitch`](https://github.com/x0
 ## 文档导航
 
 - [~/.config/agentsync/docs/MACOS_APP_DEVELOPMENT_GUIDE.md](~/.config/agentsync/docs/MACOS_APP_DEVELOPMENT_GUIDE.md)：改、评审或排查菜单栏图标、开机自启、恢复窗口或检查更新前**必读**。不读会在登录时弹出设置窗，或误加回「隐藏菜单栏图标」。
-- [app-macos/AGENTS.md](app-macos/AGENTS.md)：改、评审或排查 macOS 客户端工程、菜单栏浮层、五开关、覆盖安装、公开开源或发版前**必读**。不读会把内网地址推进公开仓，或漏掉签名公证更新链路。
-- [app-macos/docs/PRODUCT_CONTRACT.md](app-macos/docs/PRODUCT_CONTRACT.md)：改、优化、评审或排查浮层对齐与样式、防睡预置时长（点预置即开、禁止自定义输入）、开关的用户可见行为、清洁退出手势、媒体键禁令、防睡语义、深色模式（系统外观）、滚轮反转/平滑（含「开平滑不能滚 / 滚动时指针卡住」）、App Icon（青色旋钮已选，圆形居中）、左右键分工或权限前**必读**。不读会重新引入已否决的衣夹图标或改坏已锁体验，或重新引入音乐误触。
-- [app-macos/docs/OPERATIONS_GUIDE.md](app-macos/docs/OPERATIONS_GUIDE.md)：构建、覆盖安装、五开关真机验收、公开发版前**必读**。
-- [app-macos/docs/OPEN_SOURCE_BENCHMARK.md](app-macos/docs/OPEN_SOURCE_BENCHMARK.md)：改公开 README / Topics / 安装门面时**必读**。不读会对标漂移或漏掉截图与平台声明。
-- [~/Codes/_standards/swift.md](../_standards/swift.md)：新建、评审或改造本 macOS 应用前**必读**。
-- [~/Codes/_standards/workspace-docs/swift-docs/macos-app-baseline.md](../_standards/workspace-docs/swift-docs/macos-app-baseline.md)：脚手架、评审完整度前**必读**。
-- [~/Codes/_standards/workspace-docs/swift-docs/macos-signing-notarization-distribution.md](../_standards/workspace-docs/swift-docs/macos-signing-notarization-distribution.md)：改签名、公证、Sparkle、Homebrew 或发版脚本前**必读**。
+- [app-macos/AGENTS.md](~/Codes/HandySwitch/app-macos/AGENTS.md)：改、评审或排查 macOS 客户端工程、菜单栏浮层、五开关、覆盖安装、公开开源或发版前**必读**。不读会把内网地址推进公开仓，或漏掉签名公证更新链路。
+- [app-macos/docs/PRODUCT_CONTRACT.md](~/Codes/HandySwitch/app-macos/docs/PRODUCT_CONTRACT.md)：改、优化、评审或排查浮层对齐与样式、防睡预置时长（点预置即开、禁止自定义输入）、开关的用户可见行为、清洁退出手势、媒体键禁令、防睡语义、深色模式（系统外观）、滚轮反转/平滑（含「开平滑不能滚 / 滚动时指针卡住」）、App Icon（青色旋钮已选，圆形居中）、左右键分工或权限前**必读**。不读会重新引入已否决的衣夹图标或改坏已锁体验，或重新引入音乐误触。
+- [app-macos/docs/OPERATIONS_GUIDE.md](~/Codes/HandySwitch/app-macos/docs/OPERATIONS_GUIDE.md)：构建、覆盖安装、五开关真机验收、公开发版前**必读**。
+- [app-macos/docs/OPEN_SOURCE_BENCHMARK.md](~/Codes/HandySwitch/app-macos/docs/OPEN_SOURCE_BENCHMARK.md)：改公开 README / Topics / 安装门面时**必读**。不读会对标漂移或漏掉截图与平台声明。
+- [~/Codes/_standards/swift.md](~/Codes/_standards/swift.md)：新建、评审或改造本 macOS 应用前**必读**。
+- [~/Codes/_standards/workspace-docs/swift-docs/macos-app-baseline.md](~/Codes/_standards/workspace-docs/swift-docs/macos-app-baseline.md)：脚手架、评审完整度前**必读**。
+- [~/Codes/_standards/workspace-docs/swift-docs/macos-signing-notarization-distribution.md](~/Codes/_standards/workspace-docs/swift-docs/macos-signing-notarization-distribution.md)：改签名、公证、Sparkle、Homebrew 或发版脚本前**必读**。
 
 <!-- managed:inherited-agents:end -->
 

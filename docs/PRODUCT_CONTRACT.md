@@ -59,7 +59,7 @@
 - **文案**：英文 `Dark Mode`；简体中文 `深色模式`（对齐系统设置用词；勿改成谜语名或做成夜览）。
 - **开**：系统外观为深色；**关**：系统外观为浅色。若用户原先是「自动」，拨动本开关会退出自动、落到明确的深色或浅色（与系统设置 / 控制中心行为一致）。
 - **镜像系统**：开关反映系统当前外观；在系统设置或控制中心改外观时，浮层打开时应同步。**不要**把深色状态写进本应用偏好并在启动时强行重放——会与系统「自动」和外部分切换打架。
-- **权限与实现**：经 System Events 切换外观；加固运行时 / Apple Events /「自动化列表没有本应用」→ 全局 [macos-system-permissions.md](/Users/geraltgraham/Codes/_standards/workspace-docs/swift-docs/macos-system-permissions.md)。异步拨回须代际作废 → [MACOS_ASYNC_UI_STATE_GUIDE.md](~/.config/agentsync/docs/MACOS_ASYNC_UI_STATE_GUIDE.md)。
+- **权限与实现**：经 System Events 切换外观；加固运行时 / Apple Events /「自动化列表没有本应用」→ 全局 [macos-system-permissions.md](~/Codes/_standards/workspace-docs/swift-docs/macos-system-permissions.md)。异步拨回须代际作废 → [MACOS_ASYNC_UI_STATE_GUIDE.md](~/.config/agentsync/docs/MACOS_ASYNC_UI_STATE_GUIDE.md)。
 - 缺自动化权限时：开关打不开（或拨动后回弹）。**未弹过系统授权窗时，自动化列表本来就不会有 HandySwitch**——禁止把用户空指到设置里找；应引导再拨深色模式并点允许，列表项只在弹过窗之后才出现。仅当用户已拒绝后，才提供跳到系统设置 › 隐私与安全性 › 自动化。
 - **授权窗必须看得见（2026-09-10）**：本应用是菜单栏代理（无 Dock 图标）。申请 System Events 前须短暂 `activate`（必要时临时切到普通激活策略），并用真实 Apple Event / 外观读取触发 TCC；禁止只做静默查询后假定「用户已经看到弹窗」。若用户反馈「没有任何申请弹出」，先核 entitlement + 用途串，再核是否未激活导致系统表单被压在后面。
 - **禁止**用私有 SkyLight 外观 API 当主路径（易碎、难公证）；**禁止**做成 Night Shift / 色温开关却仍叫深色模式。
@@ -117,6 +117,14 @@
 - 用户可见文案默认英文，并提供简体中文（跟随系统每应用语言）。
 - 菜单栏完成态：打开主窗口、开机自启三态、检查更新入口、退出；**无**隐藏图标项。开机自启默认关；待批准不得显示成已开启；登录项拉起必须静默。**主窗口须含**开机自启、检查更新、退出（与右键对等）。
 - **检查更新**：已配置 `SUPublicEDKey` 与 `SUFeedURL`（指向本仓公开 `appcast.xml`）后允许自动启动 Sparkle；缺任一项时禁止 `startingUpdater: true`，点检查更新则提示「尚未配置更新」。菜单与主窗口都要有入口。
+
+## Settings layout (2026-10-19)
+
+Keep the five feature switches in their existing menu-bar panel. Settings contains only the existing Launch at Login preference, its approval/error states and the existing Check for Updates and Quit actions. Use one demand-only SwiftUI `Settings` scene with a 480-point native grouped `Form`: General followed by the 32-point app icon, app name and secondary marketing version, with update/quit buttons on the right. Remove the redundant running-status card and ordinary launch instructions; keep required approval guidance inline. The current fleet task authorizes opening this window for installed acceptance, without changing silent first/login launch.
+
+Use the public native `Settings`, `Form`, `Section`, `Toggle`, `LabeledContent`, `Button` and `openSettings` APIs present in Xcode 27.2 for this macOS 26+ target. Reference selection: inspected this product's current grouped Form, custom window and local Command-comma monitor. Reuse its LaunchAtLoginManager and termination/update actions; apply the native-scene/content-height recipe in the shared [settings guide](~/Codes/_standards/workspace-docs/swift-docs/macos-settings-visual-spec.md) and [AppKit guide](~/Codes/_standards/workspace-docs/swift-docs/macos-appkit-gotchas.md#swiftui-settings-panes-tabs-sizing-and-reordering-macos-272-sdk-2026-10-12). Apple's [Settings example](https://developer.apple.com/documentation/swiftui/settings) and [Form](https://developer.apple.com/documentation/swiftui/form) establish applicability. Retain MacKit's accessory activation session, the `HandySwitch.MainWindow` autosave name and a visible-screen clamp. Observe native window notifications without replacing SwiftUI's delegate. Escape closes the Settings window; the scene owns the standard application-menu/Command-comma entry, replacing the local key monitor.
+
+Release publication preserves the configured Git hook chain; tracked build/release logs are removed from the index while kept locally and excluded from later snapshots. The public snapshot must have the same source tree as the committed workspace. The release includes meaningful English-first and complete Simplified Chinese notes from CHANGELOG.md in both GitHub and Sparkle. Build both supported Mac architectures, commit the whole source/docs workspace before build or installation, and validate the installed Settings window. The panel, preset durations, permissions, scroll handling, icon, and feature state have no behavior changes in this revision.
 
 ## 明确不做
 

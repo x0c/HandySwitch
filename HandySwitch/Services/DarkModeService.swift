@@ -16,8 +16,7 @@ final class DarkModeService {
     private(set) var automationAccessDenied = false
     var onStatusChange: (() -> Void)?
 
-    /// 观察者令牌仅用于移除；deinit 可能离开 MainActor，故用 unsafe。
-    nonisolated(unsafe) private var themeObserver: NSObjectProtocol?
+    @ObservationIgnored private var themeObserver: NSObjectProtocol?
     private var toggleGeneration = 0
 
     init() {
@@ -35,7 +34,7 @@ final class DarkModeService {
         }
     }
 
-    deinit {
+    isolated deinit {
         if let themeObserver {
             DistributedNotificationCenter.default().removeObserver(themeObserver)
         }

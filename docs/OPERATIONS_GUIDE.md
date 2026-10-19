@@ -23,14 +23,7 @@ xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Rel
 
 ### 发版中断后怎么续（禁止盲目重跑整脚本）
 
-若日志已到「公证 dmg」且有提交编号，进程在轮询 `sleep` 时被杀掉（如 `Terminated: 15`）：
-
-1. 用同一组 `publish-local.env` 跑 `xcrun notarytool info <提交编号> …`。
-2. **Accepted** 且 `build/HandySwitch-<版>.dmg` 仍在：对该**同一份** dmg 做 `stapler staple` / `stapler validate`，再按脚本后半段重生 appcast（中断时临时目录会丢）、提交、推 GitHub 快照、Release 上传、Homebrew、匿名终检。
-3. **禁止**此时再跑整脚本从「打 dmg」重来：新 dmg 校验和不同，旧票据装不上，等于再排一次公证。
-4. **In Progress**：继续 `info` 轮询；**Rejected**：看 `notarytool log`，修根因后再整脚本重跑。
-5. `raw.githubusercontent.com` 的 appcast 可能短暂缓存旧版；可用 commit 钉死 raw、jsDelivr 或 `git fetch` 对照，再等 main raw 刷新后做终检。
-6. **main 快照已推、tag / Release 中断**（SSH `Connection closed`、tag 推送失败）：不要重跑整脚本（公证产物已在 `build/`）。对**同一**快照 commit 执行 `git push github <commit>:refs/tags/vX.Y.Z`，再 `gh release create`（若尚无）+ `gh release upload … --clobber`，最后按脚本后半段更新 Homebrew 并做匿名终检。
+通用中断续跑规则见 [macOS 应用签名、公证、分发与应用内自更新 §七](~/Codes/_standards/workspace-docs/swift-docs/macos-signing-notarization-distribution.md#七发版脚本骨架与本机优先原则)（发版脚本中断后续跑、快照推 main 成功推 tag 断线、raw CDN 滞后 rows）。本产品只记接线值：同一组 `publish-local.env`、`build/HandySwitch-<版>.dmg`、发版脚本 `scripts/publish-release.sh`，中断后按其后半段（重生 appcast、提交、推 GitHub 快照、Release 上传、Homebrew、匿名终检）续跑。
 
 ## 验收清单
 
@@ -52,3 +45,16 @@ xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Rel
 - 开启后退出 / 重启只恢复原截止时间，过期后重启保持关闭。
 
 <!-- 该文档整理/压缩于 2026-09-05 -->
+
+## Settings diagnostics (1.0.20)
+
+- `DarkModeService.themeObserver`: keep the observer token MainActor-isolated and use Swift 6.2+ `isolated deinit` to remove it on the same actor, eliminating the unsafe annotation. The existing `@Observable` macro makes a plain `nonisolated` replacement invalid for its mutable backing storage. This target is macOS 26+ with Xcode 26+; the installed Swift 6.4 supports [SE-0371](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md). This does not alter automation requests or appearance switching.
+- `SmoothScrollPoster` retains the existing Core Video display-link timing for this visual-only settings revision. `CVDisplayLinkCreateWithActiveCGDisplays` (creation), `CVDisplayLinkSetOutputCallback` (off-main timing callback), `CVDisplayLinkStart` (start), and the two `CVDisplayLinkStop` sites (explicit stop and drained-buffer stop) are deprecated since macOS 15 but still declared in the installed SDK. Each warning originates in the existing background interpolation mechanism, not the new Settings scene. Moving to AppKit display links changes callback ownership and scrolling behavior and requires physical mouse/pointer acceptance; it is not a diagnostic-only substitution. Residual risk: continued dependence on deprecated timing APIs. Follow-up: migrate the timer with real scroll/pointer and stop/restart evidence before those APIs are removed.
+- `postToTarget` captures a non-Sendable `CGEvent` in `postQueue.async`; the related CoreGraphics preconcurrency-import suggestion has the same cause. The code creates an independent event with `template.copy()`, completes every mutation before enqueue, captures that single copy and never accesses it afterward. The stored template is not the posted instance. Inspection establishes exclusive use of this instance in the closure, so no shared mutation defect is established. Keep the warning visible rather than add an unchecked assertion or preconcurrency import. Residual risk: a future mutation after enqueue would break that ownership argument; follow-up: express or transfer the event data through a compiler-checked boundary during the scroll timing migration.
+- The App Intents metadata skip comes from Xcode processing app/test targets without an AppIntents dependency; Settings introduces no intents or metadata consumer. Reassess when adding system automation capabilities.
+- Sparkle's background scheduled-reminder warning is retained: the existing updater has no gentle-reminder delegate. Manual update checks remain standard Sparkle UI. A scheduled alert can be missed behind another app; a reminder policy must be designed separately rather than silence the support flag. Reference: [Sparkle gentle reminders](https://sparkle-project.org/documentation/gentle-reminders/).
+- Under screen lock, AppKit reports that accessibility elements below its shield are not vended. Window-only images can still verify newly rendered static Settings content after a bounded display wake; they do not establish interactive controls or VoiceOver. A test-host startup also reported a layout-recursion diagnostic from the existing toggle panel; it occurs during the test host’s unconditional toggle-panel construction before Settings is requested. The panel’s synchronous geometry-to-frame callback is a candidate, not a confirmed stack trace. No new Settings layout call forces `layoutSubtreeIfNeeded`. Retain this startup diagnostic for a bounded panel-layout investigation with a breakpoint backtrace and physical acceptance; do not claim it resolved by the Settings build.
+
+### Snapshot publication recovery
+
+When GitHub main advanced outside this checkout, `ls-remote` can return a parent commit that is absent locally. Fetch `github main` before creating the clean-tree snapshot and use the fetched remote-tracking ref as its parent. A read-only remote hash alone is insufficient for `commit-tree`. Resume publication using the existing accepted/stapled artifacts; do not rebuild or resubmit notarization. Keep ordinary Git hooks active for the application and Homebrew commits.

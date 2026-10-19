@@ -116,19 +116,20 @@ push_github_snapshot() {
     || die "缺少 github remote（git remote add github git@github.com:${REPO}.git）"
   git add -A
   tree="$(git write-tree)"
-  parent="$(git ls-remote github refs/heads/main 2>/dev/null | awk '{print $1}')"
+  git fetch github main || die "无法获取 GitHub main 快照父提交"
+  parent="$(git rev-parse refs/remotes/github/main)"
   if [[ -n "${parent}" ]]; then
     commit="$(git commit-tree "${tree}" -p "${parent}" -m "${message}")"
   else
     commit="$(git commit-tree "${tree}" -m "${message}")"
   fi
-  git -c core.hooksPath=/dev/null push github "${commit}:refs/heads/main" \
+  git push github "${commit}:refs/heads/main" \
     || die "推 GitHub main 快照失败"
   # 标签单独推：主分支成功后若标签断线，重试一次，避免留下「有 commit 无 Release 标签」半成品
-  if ! git -c core.hooksPath=/dev/null push github "${commit}:refs/tags/${tag}"; then
+  if ! git push github "${commit}:refs/tags/${tag}"; then
     echo "推 GitHub tag ${tag} 失败，3 秒后重试…"
     sleep 3
-    git -c core.hooksPath=/dev/null push github "${commit}:refs/tags/${tag}" \
+    git push github "${commit}:refs/tags/${tag}" \
       || die "推 GitHub tag ${tag} 失败（main 已更新；可手动：git push github <commit>:refs/tags/${tag} 后继续建 Release）"
   fi
 }
@@ -186,8 +187,13 @@ log_step "本次发布版本：${tag}（内部构建号 ${build_number}）"
 # ---------- 1. 构建 ----------
 log_step "生成 Xcode 工程并做 Release 构建"
 xcodegen generate >/dev/null
+# Archive/install sources are reproducible from this snapshot; release logs stay local.
+git add -A
+if ! git diff --cached --quiet; then
+  git commit -m "Prepare ${tag} source snapshot"
+fi
 xcodebuild -project "${SCHEME}.xcodeproj" -scheme "${SCHEME}" -configuration Release \
-  -destination 'platform=macOS' -derivedDataPath build/DerivedData \
+  -destination 'generic/platform=macOS' ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO -derivedDataPath build/DerivedData \
   -allowProvisioningUpdates build \
   || die "Release 构建失败"
 [[ -d "${APP_PATH}" ]] || die "构建产物不存在：${APP_PATH}"
@@ -259,20 +265,23 @@ xcrun stapler staple "${APP_PATH}" || die "装订票据失败"
 # ---------- 4. 生成 Sparkle 更新包与清单 ----------
 log_step "生成 Sparkle 签名更新包与 appcast"
 release_notes_file="${work_dir}/release-notes.md"
-cat > "${release_notes_file}" <<EOF
-HandySwitch ${version}
-
-- Matching app and menu-bar icons: a centered rotary control with an upper-right indicator and arc.
-- Five menu-bar toggles: Clean Mode, Dark Mode, Prevent Sleep, Reverse Mouse Scroll, Smooth Mouse Scroll.
-- Left-click opens the switch panel under the icon; right-click for Launch at Login, Check for Updates, and Quit.
-- Signed, notarized DMG with Sparkle in-app updates.
-EOF
+python3 - "${version}" "${release_notes_file}" <<'PYNOTES'
+from pathlib import Path
+import re, sys
+version, output = sys.argv[1:]
+text = Path("CHANGELOG.md").read_text()
+match = re.search(rf"^## {re.escape(version)}\s*$([\s\S]*?)(?=^## |\Z)", text, re.MULTILINE)
+if not match:
+    raise SystemExit(f"Missing bilingual notes for {version}")
+Path(output).write_text(f"# HandySwitch {version}\n\n{match.group(1).strip()}\n")
+PYNOTES
 
 appcast_dir="${work_dir}/appcast"
 mkdir -p "${appcast_dir}"
 rm -f "${update_zip_path}"
 ditto -c -k --keepParent "${APP_PATH}" "${update_zip_path}"
 ditto "${update_zip_path}" "${appcast_dir}/${ASSET_STEM}-${version}.zip"
+ditto "${release_notes_file}" "${appcast_dir}/${ASSET_STEM}-${version}.md"
 if [[ -f appcast.xml ]]; then
   ditto appcast.xml "${appcast_dir}/appcast.xml"
 fi
@@ -331,7 +340,7 @@ ditto "${appcast_dir}/appcast.xml" appcast.xml
 log_step "提交改动并打 tag"
 git add -A
 if ! git diff --cached --quiet; then
-  git -c core.hooksPath=/dev/null commit -m "chore: 发布 ${tag}"
+  git commit -m "chore: 发布 ${tag}"
 else
   echo "工作区无改动，跳过提交"
 fi
@@ -418,7 +427,7 @@ git -C "${tap_dir}" add "Casks/${CASK_NAME}.rb"
 if git -C "${tap_dir}" diff --cached --quiet; then
   echo "Homebrew 配方已是 ${version}，无需更新"
 else
-  git -C "${tap_dir}" -c core.hooksPath=/dev/null commit -m "handy-switch ${version}"
+  git -C "${tap_dir}" commit -m "handy-switch ${version}"
   git -C "${tap_dir}" push origin HEAD
 fi
 

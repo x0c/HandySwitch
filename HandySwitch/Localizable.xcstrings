@@ -195,30 +195,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "HandySwitch"
+            "value": "HandySwitch Settings"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "HandySwitch"
-          }
-        }
-      }
-    },
-    "settings.status": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Status"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "状态"
+            "value": "HandySwitch 设置"
           }
         }
       }
@@ -240,23 +223,6 @@
         }
       }
     },
-    "settings.running": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "HandySwitch is running."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "HandySwitch 正在运行。"
-          }
-        }
-      }
-    },
     "settings.launchAtLogin": {
       "extractionState": "manual",
       "localizations": {
@@ -270,23 +236,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "开机自启动"
-          }
-        }
-      }
-    },
-    "settings.launchAtLogin.help": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Off by default. Requires your approval in Login Items when first enabled."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "默认关闭。首次开启时需在登录项中批准。"
           }
         }
       }

@@ -4,3 +4,6 @@ build/
 DerivedData/
 .build-menubar-fix/
 scripts/publish-local.env
+
+# Local build and notarization output
+logs/
