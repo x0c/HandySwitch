@@ -222,7 +222,10 @@ codesign --force --options runtime --timestamp \
 codesign --force --options runtime --timestamp \
   --sign "${SIGN_IDENTITY}" "${APP_PATH}/Contents/Frameworks/Sparkle.framework" \
   || die "重签 Sparkle.framework 失败"
+# 主包重签必须带 --entitlements：不带会被静默剥掉全部权限
+#（2026-11-02 实测：漏带导致公开版缺 apple-events，深色模式弹不出授权）。
 codesign --force --options runtime --timestamp \
+  --entitlements "${ROOT_DIR}/HandySwitch/HandySwitch.entitlements" \
   --sign "${SIGN_IDENTITY}" "${APP_PATH}" \
   || die "重签 ${APP_BUNDLE}.app 失败"
 sparkle_public_key="$(/usr/libexec/PlistBuddy -c 'Print :SUPublicEDKey' HandySwitch/Info.plist 2>/dev/null || true)"
@@ -241,6 +244,8 @@ grep -q "flags=.*runtime" <<<"${sign_info}" \
 if grep -q "get-task-allow" <<<"${entitlements}"; then
   die "产物带调试权限 get-task-allow，苹果公证会打回（检查 CODE_SIGN_INJECT_BASE_ENTITLEMENTS）"
 fi
+grep -q "com.apple.security.automation.apple-events" <<<"${entitlements}" \
+  || die "产物缺深色模式所需的 apple-events 权限（重签主包时须带 --entitlements）"
 # 嵌套辅助程序逐个核对签发者与时间戳：deep 校验只看结构，拦不住 adhoc 签名
 for nested in "${sparkle_fw_dir}/XPCServices/Downloader.xpc" \
               "${sparkle_fw_dir}/XPCServices/Installer.xpc" \
