@@ -414,7 +414,7 @@ cask "${CASK_NAME}" do
   desc "Minimal macOS menu bar toggles for everyday Mac habits"
   homepage "${REPO_WEB}"
 
-  depends_on macos: :tahoe
+  depends_on macos: :sonoma
 
   app "${APP_BUNDLE}.app"
 
@@ -449,7 +449,7 @@ log_step "发布完成"
 cat <<EOF
 版本：${tag}（内部构建号 ${build_number}）
 首次安装：${REPO_WEB}/releases/latest
-一键安装：brew tap x0c/tap && brew install --cask ${CASK_NAME}
+一键安装：brew install --cask x0c/tap/${CASK_NAME}
 自动更新：${FEED_URL}
 状态：安装包可匿名下载，已完成 Sparkle 签名、Developer ID 签名、苹果公证与票据装订
 EOF

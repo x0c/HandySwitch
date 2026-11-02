@@ -15,6 +15,8 @@ xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Rel
 
 见组件根 `AGENTS.md` 中的 ditto 命令。装完核对 About / 内部构建号。
 
+覆盖运行中的旧版：外部 quit（Apple 事件 / SIGTERM）会走 `applicationShouldTerminate` 并被退出守卫拦掉（见全局菜单栏开发指南「退出守卫」），进程不死。先停掉旧进程再 `rm -rf`（断言由内核随进程回收，持久化计划重启后恢复）；`ditto` 前先确认产物路径存在，禁止相对路径裸写（2026-11-02 即因此误删过一次已安装包，所幸构建产物完好、立即装回）。
+
 ## 公开发版
 
 一条命令：`scripts/publish-release.sh`（签名 → 公证 → Sparkle appcast → GitHub Release → Homebrew cask）。本地私有配置见 `scripts/publish-local.env.example`。只做本机公证包可用 `--local-only`。
@@ -48,7 +50,7 @@ xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Rel
 
 ## Settings diagnostics (1.0.20)
 
-- `DarkModeService.themeObserver`: keep the observer token MainActor-isolated and use Swift 6.2+ `isolated deinit` to remove it on the same actor, eliminating the unsafe annotation. The existing `@Observable` macro makes a plain `nonisolated` replacement invalid for its mutable backing storage. This target is macOS 26+ with Xcode 26+; the installed Swift 6.4 supports [SE-0371](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md). This does not alter automation requests or appearance switching.
+- `DarkModeService.themeObserver`: keep the observer token MainActor-isolated and use Swift 6.2+ `isolated deinit` to remove it on the same actor, eliminating the unsafe annotation. The existing `@Observable` macro makes a plain `nonisolated` replacement invalid for its mutable backing storage. This target is macOS 14+; the installed Swift 6.4 supports [SE-0371](https://github.com/swiftlang/swift-evolution/blob/main/proposals/0371-isolated-synchronous-deinit.md). This does not alter automation requests or appearance switching.
 - `SmoothScrollPoster` retains the existing Core Video display-link timing for this visual-only settings revision. `CVDisplayLinkCreateWithActiveCGDisplays` (creation), `CVDisplayLinkSetOutputCallback` (off-main timing callback), `CVDisplayLinkStart` (start), and the two `CVDisplayLinkStop` sites (explicit stop and drained-buffer stop) are deprecated since macOS 15 but still declared in the installed SDK. Each warning originates in the existing background interpolation mechanism, not the new Settings scene. Moving to AppKit display links changes callback ownership and scrolling behavior and requires physical mouse/pointer acceptance; it is not a diagnostic-only substitution. Residual risk: continued dependence on deprecated timing APIs. Follow-up: migrate the timer with real scroll/pointer and stop/restart evidence before those APIs are removed.
 - `postToTarget` captures a non-Sendable `CGEvent` in `postQueue.async`; the related CoreGraphics preconcurrency-import suggestion has the same cause. The code creates an independent event with `template.copy()`, completes every mutation before enqueue, captures that single copy and never accesses it afterward. The stored template is not the posted instance. Inspection establishes exclusive use of this instance in the closure, so no shared mutation defect is established. Keep the warning visible rather than add an unchecked assertion or preconcurrency import. Residual risk: a future mutation after enqueue would break that ownership argument; follow-up: express or transfer the event data through a compiler-checked boundary during the scroll timing migration.
 - The App Intents metadata skip comes from Xcode processing app/test targets without an AppIntents dependency; Settings introduces no intents or metadata consumer. Reassess when adding system automation capabilities.
@@ -58,3 +60,10 @@ xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Rel
 ### Snapshot publication recovery
 
 When GitHub main advanced outside this checkout, `ls-remote` can return a parent commit that is absent locally. Fetch `github main` before creating the clean-tree snapshot and use the fetched remote-tracking ref as its parent. A read-only remote hash alone is insufficient for `commit-tree`. Resume publication using the existing accepted/stapled artifacts; do not rebuild or resubmit notarization. Keep ordinary Git hooks active for the application and Homebrew commits.
+
+### Deployment-floor audit (macOS 14, 2026-11-02)
+
+- 26.0 基线虚高：五个开关无 26 独占 API。`NSGlassEffectView`（26+）已有 `NSVisualEffectView` fallback；`onScrollGeometryChange`（15+）在设置窗高度测量处用 `onGeometryChange`（13+）做 14 fallback；其余（CGEvent tap、IOPMAssertion、SMAppService、System Events、Sparkle 2、`@Observable`、focus/scroll 修饰符）均为 14 可用；MacKit 本身声明 `.macOS(.v14)`。
+- 方法：已安装 SDK 的 SwiftUI/SwiftUICore `.swiftinterface` 查各 API 的 `@available`；再用 `MACOSX_DEPLOYMENT_TARGET=15.0/14.0` 覆盖试构建，编译器报错即完整 blocker 清单（14 下唯一报错就是 `onScrollGeometryChange` 一处）。
+- Apple 无低版本兼容模式、无 macOS 模拟器：在新系统上 `#available` 旧分支永不执行。旧分支验证法：临时 `#available(macOS 99, *)` 强制点亮 + DEBUG 启动参数直达被测面 + 独立 bundle id（避开用户偏好域）+ 新鲜截图验像素，验完还原重建。本次设置窗 fallback 以此验证（480×212 一次收敛、无裁剪）。
+- 证据：Debug + 通用 Release 构建通过、8 测试全绿、产物 `minos 14.0, sdk 27.2`。残留：Sonoma 真机运行时未验；`MacResourceMonitor` 同样 4 处 26.0，待该产品排期。

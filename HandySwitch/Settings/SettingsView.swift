@@ -34,9 +34,7 @@ struct SettingsView: View {
         .formStyle(.grouped)
         .toggleStyle(.switch)
         .scrollDisabled(true)
-        .onScrollGeometryChange(for: CGFloat.self) { $0.contentSize.height } action: { _, height in
-            if height > 0 { contentHeight = height }
-        }
+        .settingsContentHeight($contentHeight)
         .frame(width: 480, height: contentHeight)
         .fixedSize()
         .focusEffectDisabled()
@@ -72,5 +70,23 @@ struct SettingsView: View {
             get: { launchAtLogin.isEnabled },
             set: { launchAtLogin.setEnabled($0) }
         )
+    }
+}
+
+private extension View {
+    /// Tracks the Settings form's content height. `onScrollGeometryChange`
+    /// needs macOS 15+; on macOS 14 fall back to `onGeometryChange`
+    /// (available since macOS 13), the same mechanism the menu-bar panel uses.
+    @ViewBuilder
+    func settingsContentHeight(_ height: Binding<CGFloat>) -> some View {
+        if #available(macOS 15, *) {
+            onScrollGeometryChange(for: CGFloat.self) { $0.contentSize.height } action: { _, newHeight in
+                if newHeight > 0 { height.wrappedValue = newHeight }
+            }
+        } else {
+            onGeometryChange(for: CGFloat.self) { $0.size.height } action: { newHeight in
+                if newHeight > 0 { height.wrappedValue = newHeight }
+            }
+        }
     }
 }

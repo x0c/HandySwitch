@@ -6,6 +6,27 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>HandySwitch</title>
         <item>
+            <title>1.0.21</title>
+            <pubDate>Mon, 02 Nov 2026 19:24:25 +0800</pubDate>
+            <link>https://github.com/x0c/HandySwitch</link>
+            <sparkle:version>23</sparkle:version>
+            <sparkle:shortVersionString>1.0.21</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description sparkle:format="markdown"><![CDATA[# HandySwitch 1.0.21
+
+- Support macOS 14 Sonoma and later (previously macOS 26 only); the Settings window measures its height with a compatible API on macOS 14.
+- New app icon: a warm-white control knob with a deep-teal pointer and dial dots on turquoise.
+- New menu bar icon: a clean line drawing of the knob and its pointer.
+
+### 简体中文
+
+- 支持 macOS 14 Sonoma 及更高版本（之前仅支持 macOS 26）；设置窗口在 macOS 14 上改用兼容的高度测量方式。
+- 新应用图标：青色底上的暖白旋钮，配深青指针和刻度圆点。
+- 新菜单栏图标：旋钮与指针的简洁线条剪影。
+]]></description>
+            <enclosure url="https://github.com/x0c/HandySwitch/releases/download/v1.0.21/HandySwitch-1.0.21.zip" length="3921416" type="application/octet-stream" sparkle:edSignature="l2NRvT5LC3BCChPAmj8wU4GhGOQDmawSdvnbgdzfh3XKBIc4un0DEH9hgHjdWlh1k2PxYVRKLjLW4kgFVl7VDQ=="/>
+        </item>
+        <item>
             <title>1.0.20</title>
             <pubDate>Mon, 19 Oct 2026 11:50:36 +0800</pubDate>
             <link>https://github.com/x0c/HandySwitch</link>
@@ -101,6 +122,6 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     </channel>
 </rss>
 <!-- sparkle-signatures:
-edSignature: iIHESXdSZBZNkof5VG8Du0yrRRXIChbulFwcsMLOnOwJMxeZtvBWCJMICn2kGQL/dmnHiwoudwFhdXUBejhNBQ==
-length: 7227
+edSignature: ghsoCbmyWcJdOkNsw/DxqoP/Em3x9X1gpgCrc8lKB0vDWDAJlKMFeTruRpBxqa+VfY5RaED5swgd+WqXSmIJDQ==
+length: 8603
 -->

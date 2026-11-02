@@ -4,6 +4,10 @@ build/
 DerivedData/
 .build-menubar-fix/
 scripts/publish-local.env
+TASKBOARD.md
 
 # Local build and notarization output
 logs/
+
+# Icon explorations (local only; market strip holds third-party icons)
+design/app-icon/explorations/

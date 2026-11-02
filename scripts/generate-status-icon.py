@@ -1,7 +1,17 @@
 #!/usr/bin/env python3
-"""Render the approved rotary-control silhouette as an 18 pt template asset."""
+"""Render the adopted knob as an 18 pt line-silhouette template asset.
+
+Source anchors (design/app-icon/AppIcon-1024.png, adopted 2026-11-02):
+- the knob is a full circle seen straight on; its bevelled rim becomes the
+  circle outline and the face stays transparent;
+- the indicator is a short line pointing to the upper right at about 45
+  degrees, from about 0.3 R to 0.75 R of the knob radius; it stays a solid
+  round-capped stroke;
+- the dot arc, shadow and turquoise ground are dropped (owner decision).
+"""
 
 import json
+import math
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -10,24 +20,35 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "HandySwitch/Assets.xcassets/StatusBarIcon.imageset"
 
+CANVAS = 18.0          # points
+CENTER = (9.0, 9.0)
+RADIUS = 7.4           # outer edge of the outline
+STROKE = 1.6           # outline and indicator weight, matched to SF Symbols medium
+ANGLE = math.radians(45)
+INDICATOR = (0.28, 0.76)  # start/end along the radius, measured from the centre
+
 
 def render(scale):
-    # Source anchors: circular body, upper-right indicator, detached 60-degree arc.
-    # The background is removed; the indicator becomes a transparent hole.
-    sampling = 12
+    sampling = 16
     unit = scale * sampling
-    mask = Image.new("L", (18 * unit, 18 * unit))
+    size = round(CANVAS * unit)
+    mask = Image.new("L", (size, size))
     draw = ImageDraw.Draw(mask)
+    cx, cy = (v * unit for v in CENTER)
+    r = RADIUS * unit
+    w = STROKE * unit
 
-    def bounds(cx, cy, radius):
-        return tuple(round(v * unit) for v in
-                     (cx - radius, cy - radius, cx + radius, cy + radius))
+    draw.ellipse((cx - r, cy - r, cx + r, cy + r), outline=255, width=round(w))
 
-    draw.ellipse(bounds(9, 9.3, 6), fill=255)
-    draw.ellipse(bounds(11.9, 6.4, 1.3), fill=0)
-    draw.arc(bounds(9, 9.3, 8.65), 270, 330,
-             fill=255, width=round(1.3 * unit))
-    mask = mask.resize((18 * scale, 18 * scale), Image.Resampling.LANCZOS)
+    inner = r - w
+    (a, b) = INDICATOR
+    p0 = (cx + math.cos(ANGLE) * inner * a, cy - math.sin(ANGLE) * inner * a)
+    p1 = (cx + math.cos(ANGLE) * inner * b, cy - math.sin(ANGLE) * inner * b)
+    draw.line((p0, p1), fill=255, width=round(w))
+    for x, y in (p0, p1):  # round caps
+        draw.ellipse((x - w / 2, y - w / 2, x + w / 2, y + w / 2), fill=255)
+
+    mask = mask.resize((round(CANVAS * scale),) * 2, Image.Resampling.LANCZOS)
     image = Image.new("RGBA", mask.size, (0, 0, 0, 0))
     image.putalpha(mask)
     return image

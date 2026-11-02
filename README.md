@@ -1,76 +1,96 @@
 **Languages:** English | [简体中文](README.zh-CN.md)
 
-# HandySwitch
-
 <p align="center">
-  <img src="docs/images/app-icon.png" width="128" height="128" alt="HandySwitch app icon">
+  <img src="docs/images/app-icon.png" width="112" height="112" alt="HandySwitch app icon">
+  <h1 align="center">HandySwitch</h1>
+  <p align="center">
+    <strong>Five everyday macOS toggles in one tiny menu bar icon.</strong><br>
+    Dark Mode · Prevent Sleep · Clean Mode · Reverse & Smooth Mouse Scroll
+  </p>
+  <p align="center">
+    <a href="https://github.com/x0c/HandySwitch/releases/latest"><img src="https://img.shields.io/github/v/release/x0c/HandySwitch?color=blue" alt="Latest Release"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+    <img src="https://img.shields.io/badge/platform-macOS-lightgrey" alt="Platform: macOS">
+  </p>
 </p>
 
-**Toggle macOS dark mode and prevent sleep from the menu bar** without opening System Settings. Left-click for Clean Mode, Dark Mode, Prevent Sleep, Reverse Mouse Scroll, and Smooth Mouse Scroll.
+Instead of cluttering your menu bar with separate apps for keeping your Mac awake, fixing external mouse scrolling, locking the keyboard for cleaning, and toggling dark mode, **HandySwitch** puts the five switches you actually use every day under a single native menu bar icon.
 
-It is not OnlySwitch or Mos. There is no feature supermarket, no per-app scroll profiles, and no Dock icon. The switches live under the menu bar icon.
+No feature bloat, no Dock icon, no accounts, and zero telemetry.
 
-**Requires macOS 26 or later.** Open source under the MIT License. Everything stays on your Mac — no account, no telemetry.
+**Requires macOS 14 (Sonoma) or later** (Apple silicon and Intel). Open source under the MIT License.
 
 <p align="center">
   <img src="docs/images/panel.png" width="360" alt="HandySwitch menu bar panel with five everyday toggles">
 </p>
 
-## Supported platforms
+---
 
-- **macOS 26+** (Apple silicon and Intel)
-- **Not Windows or Linux.** This app depends on the macOS menu bar, Accessibility, Automation (System Events for Dark Mode), and local input/scroll APIs.
+## ✨ The 5 Toggles
 
-## Install
+| Toggle | What it does |
+| :--- | :--- |
+| **🧹 Clean Mode** | Blacks out all displays and blocks keyboard/mouse input so you can safely wipe your screen and keys. Hold **`Esc` for 3 seconds** to exit. |
+| **🌗 Dark Mode** | Switches macOS system-wide Light and Dark appearance in one click without opening System Settings. |
+| **☕ Prevent Sleep** | Keeps your Mac awake indefinitely or for a preset timer while downloading, rendering, or running long tasks. |
+| **🖱️ Reverse Mouse Scroll** | Reverses external mouse wheel direction while keeping your MacBook trackpad's natural scrolling intact. |
+| **🌊 Smooth Mouse Scroll** | Smooths out notched external mouse wheel steps without needing complex per-app profiles. |
+
+---
+
+## 📦 Install
 
 ### Homebrew (recommended)
 
-```sh
-brew tap x0c/tap
-brew install --cask handy-switch
+```bash
+brew install --cask x0c/tap/handy-switch
 ```
 
-### Direct download
+### Direct download (DMG)
 
-Grab the latest **signed and notarized** `HandySwitch-x.y.z.dmg` from the [releases](https://github.com/x0c/HandySwitch/releases/latest) page, then drag HandySwitch to `/Applications`.
+Download the latest **signed and notarized** `HandySwitch-x.y.z.dmg` from [Releases](https://github.com/x0c/HandySwitch/releases/latest) and drag **HandySwitch** to `/Applications`.
 
-HandySwitch checks for updates automatically (via [Sparkle](https://sparkle-project.org)). Use **Check for Updates…** from the menu bar right-click menu or the main window.
+HandySwitch includes built-in automatic updates via [Sparkle](https://sparkle-project.org) (**Right-click menu bar icon → Check for Updates…**).
 
-### Build from source
+<details>
+<summary><strong>Build from source (Xcode)</strong></summary>
 
-Requires Xcode 26+ and [XcodeGen](https://github.com/yonaskolb/XcodeGen):
+Requires Xcode and [XcodeGen](https://github.com/yonaskolb/XcodeGen):
 
-```sh
+```bash
 git clone https://github.com/x0c/HandySwitch.git
 cd HandySwitch
 xcodegen generate
 xcodebuild -project HandySwitch.xcodeproj -scheme HandySwitch -configuration Release \
   -destination 'platform=macOS' -derivedDataPath build/DerivedData build
-rm -rf /Applications/HandySwitch.app
 ditto build/DerivedData/Build/Products/Release/HandySwitch.app /Applications/HandySwitch.app
 open /Applications/HandySwitch.app
 ```
+</details>
 
-## Usage
+---
 
-1. Click the menu bar icon to open the switch panel under the icon. Click outside to close.
-2. Right-click for **Open Main Window**, **Launch at Login**, **Check for Updates…**, or **Quit**. The main window mirrors launch-at-login, check-for-updates, and quit (so those stay reachable if you only open the window).
-3. **Clean Mode** and scroll toggles need **Accessibility**. **Dark Mode** needs **Automation** (System Events). If a switch cannot turn on, follow the in-app link to System Settings.
+## 💡 Usage & Permissions
+
+1. **Left-click** the menu bar icon to open the switch panel; click outside to dismiss.
+2. **Right-click** the icon for **Open Main Window**, **Launch at Login**, **Check for Updates…**, or **Quit**.
+3. **On-demand permissions:**
+   - **Clean Mode** and **Mouse Scroll** toggles require **Accessibility** permission.
+   - **Dark Mode** requires **Automation (System Events)** permission.
+   - Permissions are only requested when you turn on the corresponding toggle. If a switch cannot activate, click the in-app shortcut to open System Settings.
 4. In Clean Mode, hold **Esc** for about three seconds to exit (the only exit gesture).
 5. Launch at login is off by default. Login launches stay silent (no window).
 
-## Features
+---
 
-- Five polished toggles only — nothing half-finished in the panel
-- Clean Mode: full-screen black covers that block input while you wipe the screen or keyboard
-- Dark Mode mirrors system appearance (not Night Shift)
-- Prevent Sleep with preset durations
-- Reverse / smooth mouse scroll without per-app profiles
-- Menu bar template icon; no Dock icon
+## 🍎 More Native macOS & Developer Tools
 
-## Not in scope
-
-OnlySwitch-style feature markets, Mos-style per-app scroll / button remapping / inertia physics, hiding desktop icons as “clean mode”, Mac App Store, sandboxing, or Windows/Linux clients.
+| Project | Description |
+| :--- | :--- |
+| **[MacResourceMonitor](https://github.com/x0c/MacResourceMonitor)** | Lightweight menu bar CPU monitor — see which process is eating CPU and terminate it in one click. |
+| **[NeatPaste](https://github.com/NeatMacApps/NeatPaste)** & **[NeatEditor](https://github.com/NeatMacApps/NeatEditor)** | Fast, native clipboard manager and minimalist editor for macOS. |
+| **[Corral](https://github.com/corral-dev/corral-apple)** | Run Claude Code, Codex, and Cursor side by side and continue sessions from native Mac & iPhone clients. |
+| **[subswap](https://github.com/x0c/subswap)** & **[agentsync](https://github.com/x0c/agentsync)** | Multi-account quota switcher and unified config/MCP sync CLI for AI coding agents. |
 
 ## License
 

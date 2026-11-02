@@ -1,0 +1,4 @@
+Reference image: the board-E knob (warm-white knob, tangerine indicator, dot arc, near-black ground).
+
+Use the reference image as the design reference for a square app icon. Keep what makes it work: a single round control knob seen straight on with a smooth bevelled edge, one short indicator line pointing toward the upper right, a sparse arc of seven small dots around the knob from the left to the right side, flat rendering with a soft tonal gradient and gentle depth, one soft light from the upper left, the knob centred with even breathing room. Full-bleed opaque 1:1 canvas, the ground edge to edge; no rounded corners, no border, no text, no numbers, no labels. Make the seven dots slightly larger and rounder so they still read at 48 pixels.
+Change only the colours: the warm-white knob #F4F1EA with a deep teal indicator #0B5560, the dots deep teal, on a bright turquoise ground #14C8C8 with a soft tonal shift of light from the upper left.
