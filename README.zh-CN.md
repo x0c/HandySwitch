@@ -88,6 +88,7 @@ open /Applications/HandySwitch.app
 | 项目 | 简介 |
 | :--- | :--- |
 | **[MacResourceMonitor](https://github.com/x0c/MacResourceMonitor)** | 轻量菜单栏 CPU 监视器——一眼看出哪个进程在吃 CPU，一键结束它。 |
+| **[NeatWebApp](https://github.com/NeatMacApps/NeatWebApp)** | 从刘海启动网站应用，用悬浮活动 Dock 收起窗口。 |
 | **[NeatPaste](https://github.com/NeatMacApps/NeatPaste)** 与 **[NeatEditor](https://github.com/NeatMacApps/NeatEditor)** | 又快又原生的 macOS 剪贴板管理器与极简编辑器。 |
 | **[Corral](https://github.com/corral-dev/corral-apple)** | 把 Claude Code、Codex 和 Cursor 排排坐，在 Mac 与 iPhone 原生客户端里接着聊。 |
 | **[subswap](https://github.com/x0c/subswap)** 与 **[agentsync](https://github.com/x0c/agentsync)** | AI 编程助手的多账号额度切换器与统一配置 / MCP 同步 CLI。 |
