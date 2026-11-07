@@ -88,6 +88,7 @@ open /Applications/HandySwitch.app
 | Project | Description |
 | :--- | :--- |
 | **[MacResourceMonitor](https://github.com/x0c/MacResourceMonitor)** | Lightweight menu bar CPU monitor — see which process is eating CPU and terminate it in one click. |
+| **[NeatWebApp](https://github.com/NeatMacApps/NeatWebApp)** | Turn websites into focused macOS apps with a notch launcher and edge-tucking activity Dock. |
 | **[NeatPaste](https://github.com/NeatMacApps/NeatPaste)** & **[NeatEditor](https://github.com/NeatMacApps/NeatEditor)** | Fast, native clipboard manager and minimalist editor for macOS. |
 | **[Corral](https://github.com/corral-dev/corral-apple)** | Run Claude Code, Codex, and Cursor side by side and continue sessions from native Mac & iPhone clients. |
 | **[subswap](https://github.com/x0c/subswap)** & **[agentsync](https://github.com/x0c/agentsync)** | Multi-account quota switcher and unified config/MCP sync CLI for AI coding agents. |
